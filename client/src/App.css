@@ -8,7 +8,7 @@
 }
 
 .navbar a {
-  float: left;
+  float: right;
   display: block;
   color: white;
   text-align: center;
@@ -19,8 +19,4 @@
 .navbar a:hover {
   background: #ddd;
   color: black;
-}
-
-.main {
-  margin-top: 70px;
 }

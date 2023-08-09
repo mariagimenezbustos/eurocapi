@@ -8,20 +8,12 @@ function App() {
 
   return (
     <div>
-      <nav className='navbar'>
+      <nav className="navbar">
+        <img href="" className="logoNavbar" />
         <a>HOME</a>
         <a>CAPITALS</a>
         <a>ADD POST</a>
       </nav>
-
-      <div className='main'>
-        <h1>WELCOME TO EUROCAPI</h1>
-        <p>Text here</p>
-        <nav>
-          <a>Go to Capitals</a>
-        </nav>
-      </div>
-      
     </div>
   )
 }
