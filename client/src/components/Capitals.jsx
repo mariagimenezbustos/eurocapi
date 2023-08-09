@@ -17,17 +17,30 @@ function Capitals() {
     };
 
     return (
-        <div>
-            <div className="main">
-                <p>Capitals</p>
+        <div id="Capitals">
+            <div className="main-capitals">
+                <h1>European Capitals</h1>
 
-                    <ul>
-                        {capitals.map((capital) => (
-                            <li key={capital.id}>
-                                <Link to={`/capitals/${capital.id}`}>{capital.name}, {capital.country}</Link>
-                            </li>
-                        ))}
-                    </ul>
+                <form>
+                    <label>
+                        Search:
+                         <input placeholder="by capital, country or language"></input> {/* THIS STILL DOESN'T TAKE onChange */}
+                    </label>
+                </form>
+
+                <div className="card-grid">
+                    {capitals.map((capital) => (
+                        <div key={capital.id} className="card">
+                            <img src="https://picsum.photos/200/300?grayscale" alt="Card Image" className="card-img" />
+                            <h2 className="card-title">{capital.name}</h2>
+                            <h3 className="card-description">{capital.country}</h3>
+                            <button className="card-btn">
+                                <Link to={`/capitals/${capital.id}`}>Discover {capital.name}</Link>
+                            </button>
+                        </div>
+                    ))}
+                </div>
+                
             </div>
         </div>
     )

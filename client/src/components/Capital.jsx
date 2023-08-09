@@ -28,9 +28,8 @@ export default function Capital() {
     };
 
     return (
-        <div className="grid">
+        <div id="Capital">
             <div className="capital-bar">
-                <p>Capitals</p>
                 <ul>
                     {europeanCapitals.map((c) => (
                         <li key={c.id}>
@@ -40,11 +39,14 @@ export default function Capital() {
                 </ul>
             </div>
             
-            <div className="main">
+            <div className="main-capital">
                 <h1>{capital.name}</h1>
                 <h2>Capital of {capital.country}</h2>
-                
-                <Link to={"/capitals"}>Go back</Link>
+                <p>Population: {capital.population} | Official languages: {capital.language}</p>
+
+                <button>
+                    <Link to={"/capitals"}>Go back</Link>
+                </button>
             </div>
         </div>
     )
