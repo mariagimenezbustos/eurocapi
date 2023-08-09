@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react"
+import "./App.css"
 import Capitals from "./components/Capitals"
 import AddPost from "./components/AddPost"
 import Home from "./components/Home"
@@ -12,9 +12,17 @@ function App() {
   return (
     <div>
       <nav className="navbar">
-        <Link to="/">Home</Link>
-        <Link to="/capitals">Capitals</Link>
-        <Link to="/addpost">Add Post</Link>
+        <div>
+          <Link to="/">Home</Link>
+        </div>
+        
+        <div>
+          <Link to="/capitals">Capitals</Link>
+        </div>
+
+        <div>
+          <Link to="/addpost">Add Post</Link>
+        </div>
       </nav>
       <Routes>
         <Route path="/" element={<Home/>} />

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Home.css";
+import Capitals from "./Capitals"
+import { Link } from "react-router-dom"
 
 function Home() {
 
@@ -59,9 +61,7 @@ function Home() {
                 <p className="seventh">
                     Begin your Eurocapi journey now and let the capitals of Europe captivate your senses! 🗺️🏙️🌍
                 </p>
-                <nav>
-                    <a>Start Exploring Capitals</a>
-                </nav>
+                <Link to="/capitals">Start Exploring Capitals</Link>
             </div>
         </div>
     )

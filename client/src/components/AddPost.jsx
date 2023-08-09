@@ -5,7 +5,9 @@ function AddPost() {
 
     return (
         <div>
-            <p>AddPost</p>
+            <div className="main">
+                <p>AddPost</p>
+            </div>
         </div>
     )
 }
