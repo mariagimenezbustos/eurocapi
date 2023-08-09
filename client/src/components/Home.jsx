@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Home.css";
 
 function Home() {
 
     return (
         <div>
-            <p>Home</p>
-
             <div className="main">
                 <h1>WELCOME TO EUROCAPI</h1>
                 <h2>Your Gateway to European Capitals and Beyond!</h2>
