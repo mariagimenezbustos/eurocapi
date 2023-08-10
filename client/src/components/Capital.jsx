@@ -40,9 +40,12 @@ export default function Capital() {
             </div>
             
             <div className="main-capital">
-                <h1>{capital.name}</h1>
-                <h2>Capital of {capital.country}</h2>
-                <p>Population: {capital.population} | Official languages: {capital.language}</p>
+                <img className="capital-img" src={capital.url}/>
+                <div className="white-text">
+                    <h1 className="capital-name">{capital.name}</h1>
+                    <h2 className="capital-country">Capital of {capital.country}</h2>
+                    <p>Population: {capital.population} inhabitants | Official languages: {capital.language}</p>
+                </div>
 
                 <button>
                     <Link to={"/capitals"}>Go back</Link>

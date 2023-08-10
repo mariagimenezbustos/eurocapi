@@ -4,7 +4,8 @@
   background-color: #333;
   text-align: center;
   overflow: hidden;
-  width: 100%;
+  width: 110%;
+  margin-left: -10px;
 }
 
 .navbar a {

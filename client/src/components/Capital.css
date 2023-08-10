@@ -11,6 +11,7 @@
 
 ul {
     list-style-type: none;
+    text-align: left;
 }
 
 ul a:link, ul a:visited {
@@ -21,4 +22,27 @@ ul a:link, ul a:visited {
 button a:link {
     text-decoration: none;
     color: black;
+}
+
+.capital-img {
+    max-width: 100%;
+    max-height: 120%;
+    margin-top: -25px;
+    position: absolute;
+    z-index: -5;
+    margin-left: -50px;
+    filter: brightness(50%);
+}
+
+.white-text {
+    color: white;
+}
+
+.capital-name {
+    font-size: 100px;
+    margin-bottom: -20px;
+}
+
+.capital-country {
+    font-size: 50px;
 }
