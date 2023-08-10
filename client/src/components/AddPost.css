@@ -1,17 +1,26 @@
 #AddPost {
     margin-top: 70px;
+    margin-bottom: 70px;
     text-align: justify;
     text-justify: inter-word;
     box-sizing: border-box;
     margin-right: 5px;
     margin-left: 5px;
+    min-height: 80vh;
 }
 
-input, textarea {
+.title-input, .description-input {
     display: block;
     width: 100%;
     font-family: Verdana, sans-serif;
-    margin-top: 5px;
     font-weight: 100;
     text-align: left;
+}
+
+.title-tag, .description-tag, .submit, .local {
+    margin-top: 15px;
+}
+
+select, .checkbox {
+    margin-left: 10px;
 }

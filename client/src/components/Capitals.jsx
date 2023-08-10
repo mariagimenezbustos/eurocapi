@@ -24,7 +24,7 @@ function Capitals() {
                 <form>
                     <label>
                         Search:
-                         <input placeholder="by capital, country or language"></input> {/* THIS STILL DOESN'T TAKE onChange */}
+                         <input className="search-bar" placeholder="by capital, country or language"></input> {/* THIS STILL DOESN'T TAKE onChange */}
                     </label>
                 </form>
 

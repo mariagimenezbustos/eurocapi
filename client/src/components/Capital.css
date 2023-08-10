@@ -12,9 +12,16 @@ ul {
     text-align: left;
     background-color: bisque;
     padding-top: 70px;
+    padding-bottom: 70px;
     padding-right: 15px;
-    padding-left: -10px;
-    /* width: 20vw; */
+    margin-left: -10px;
+    margin-bottom: -10px;
+    min-height: 100vh;
+    width: 21vw;
+}
+
+li {
+    padding-bottom: 10px;
 }
 
 ul a:link, ul a:visited {
@@ -43,6 +50,7 @@ button a:link {
 
 .white-text {
     color: white;
+    padding-bottom: 10px;
 }
 
 .capital-name {
@@ -53,4 +61,37 @@ button a:link {
 
 .capital-country {
     font-size: 50px;
+}
+
+i {
+    padding-bottom: 70px;
+    font-size: small;
+}
+
+.main-capital {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 80vw;
+}
+
+.basics { 
+    text-align: center;
+    border-radius: 1rem;
+    box-shadow: 1px 5px 8px #999;
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+    width: 15rem;
+    height: fit-content;
+    padding: 5px;
+}
+
+.basics-grid {
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    column-gap: 30px;
+    row-gap: 30px;
+    justify-content: 60%;
 }

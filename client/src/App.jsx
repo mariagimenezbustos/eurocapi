@@ -7,7 +7,6 @@ import { Routes, Route, Link } from "react-router-dom"
 import Capital from "./components/Capital"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div>
@@ -30,6 +29,9 @@ function App() {
         <Route path="/capitals/:id" element={<Capital/>} />
         <Route path="/addpost" element={<AddPost/>} />
       </Routes>
+      <footer>
+        <p>Eurocapi, 2023.</p>
+      </footer>
     </div>
   )
 }

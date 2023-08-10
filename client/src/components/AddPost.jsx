@@ -5,6 +5,7 @@ function AddPost() {
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
     const [project, setProject] = useState({
         name: "",
+        local: "",
         title: "",
         description: "",
     });
@@ -38,7 +39,7 @@ function AddPost() {
     return (
         <div id="AddPost">
             <div>
-                <p>AddPost</p>
+                <h1>Share your experience!</h1>
 
                 <form 
                     // onSubmit={handleSubmit} 
@@ -49,14 +50,25 @@ function AddPost() {
                         Choose a Capital
                         <select>
                             {europeanCapitals.map((capital) => (
-                                <option name="name" key={capital.id} value={capital.name} >{capital.name}</option>
+                                <option name="name"
+                                key={capital.id}
+                                value={capital.name} 
+                                >{capital.name}</option>
                             ))}
                         </select>
                     </label>
 
+                    <br />
+
+                    <label className="local">
+                        Mark if you're a local
+                        <input type="checkbox" className="checkbox" name="local" value={project.local} />
+                    </label>
+
                     <label>
-                        Title
+                        <h3 className="title-tag">Title</h3>
                         <input
+                            className="title-input"
                             name="title"
                             value={project.title}
                             onChange={(e) => handleInputChange(e)}
@@ -64,15 +76,16 @@ function AddPost() {
                     </label>
 
                     <label>
-                        Description
+                        <h3 className="description-tag">Description</h3>
                         <textarea
+                            className="description-input"
                             name="description"
                             value={project.description}
                             onChange={(e) => handleInputChange(e)}
                         />
                     </label>
 
-                    <div className = "span2cols">
+                    <div className = "submit">
                         <button>SUBMIT</button>
                     </div>
                     

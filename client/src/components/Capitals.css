@@ -6,15 +6,16 @@
     margin-top: 70px;
     text-align: justify;
     text-justify: inter-word;
+    margin-bottom: 70px;
 }
 
 h2, h3, input {
     text-align: left;
 }
 
-input {
+.search-bar {
     margin: auto 10px 10px 10px;
-    width: 200px;
+    width: 250px;
 }
 
 .card {
@@ -35,8 +36,14 @@ input {
     height: 175px;
 }
 
-.card-title, .card-description {
+.card-title {
     margin: 0.5rem 5%;
+    font-size: 23px;
+}
+
+.card-description {
+    margin: 0.5rem 5%;
+    font-size: 15.9px;
 }
 
 .card-btn {
@@ -66,3 +73,4 @@ input {
     row-gap: 30px;
     justify-content: center;
 }
+
