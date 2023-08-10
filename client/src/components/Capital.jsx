@@ -47,6 +47,10 @@ export default function Capital() {
                     <p>Population: {capital.population} inhabitants | Official languages: {capital.language}</p>
                 </div>
 
+                <i>
+                    Note: Eurocapi is dedicated to providing accurate and comprehensive information about {capital.name} and all its unique facets, ensuring you have the most enriching experience possible.
+                </i>
+                <br/>
                 <button>
                     <Link to={"/capitals"}>Go back</Link>
                 </button>

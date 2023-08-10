@@ -31,7 +31,7 @@ function Capitals() {
                 <div className="card-grid">
                     {capitals.map((capital) => (
                         <div key={capital.id} className="card">
-                            <img src={capital.url} alt="Card Image" className="card-img" />
+                            <img src={capital.url} alt="Image" className="card-img" />
                             <h2 className="card-title">{capital.name}</h2>
                             <h3 className="card-description">{capital.country}</h3>
                             <button className="card-btn">
