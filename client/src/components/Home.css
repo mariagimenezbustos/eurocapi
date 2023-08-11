@@ -1,8 +1,7 @@
 .main {
-    margin-top: 70px;
+    margin: 70px 20px;
     text-align: justify;
     text-justify: inter-word;
-    margin-bottom: 70px;
 }
 
 h3 {

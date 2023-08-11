@@ -16,16 +16,22 @@ function Capitals() {
         setCapitals(data);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // const response = await fetch("/api/capitals?search=")
+    }
+
     return (
         <div id="Capitals">
             <div className="main-capitals">
                 <h1>European Capitals</h1>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label>
-                        Search:
-                         <input className="search-bar" placeholder="by capital, country or language"></input> {/* THIS STILL DOESN'T TAKE onChange */}
+                    <input className="search-bar" placeholder="Search by capital, country or language">
+                    </input> {/* THIS STILL DOESN'T TAKE onChange */}
                     </label>
+                    <button type="submit">Search</button>
                 </form>
 
                 <div className="card-grid">
