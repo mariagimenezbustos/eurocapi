@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import "./Capitals.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function Capitals() {
     const [capitals, setCapitals] = useState([]);
-
+    const [searchTerm, setSearchTerm] = useState("");
+    const [displayAll, setDisplayAll] = useState(false);
+    
     useEffect(() => {
         getCapitals();
     }, []);
@@ -16,10 +18,25 @@ function Capitals() {
         setCapitals(data);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // const response = await fetch("/api/capitals?search=")
-    }
+    
+        // Fetch filtered data based on the search term
+        const response = await fetch(`/api/capitals?search=${searchTerm}`);
+        const data = await response.json();
+        setCapitals(data);
+        setDisplayAll(true);
+    };
+
+    const allCapitals = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("/api/capitals");
+        const data = await response.json();
+        setCapitals(data);
+        setDisplayAll(false);
+        setSearchTerm("");
+    };
 
     return (
         <div id="Capitals">
@@ -28,11 +45,17 @@ function Capitals() {
 
                 <form onSubmit={handleSubmit}>
                     <label>
-                    <input className="search-bar" placeholder="Search by capital, country or language">
-                    </input> {/* THIS STILL DOESN'T TAKE onChange */}
+                    <input
+                        className="search-bar"
+                        placeholder="Find a capital"
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        value={searchTerm}>
+                    </input>
                     </label>
                     <button type="submit">Search</button>
                 </form>
+
+                {displayAll && <button onClick={allCapitals}>Show all capitals</button>}
 
                 <div className="card-grid">
                     {capitals.map((capital) => (
