@@ -14,8 +14,8 @@ h2, h3, input {
 }
 
 .search-bar {
-    margin: auto 10px 10px 10px;
-    width: 250px;
+    margin: 10px;
+    width: 350px;
 }
 
 .card {
@@ -74,3 +74,10 @@ h2, h3, input {
     justify-content: center;
 }
 
+.all-btn {
+    margin: 10px;
+}
+
+.inputs, .euro-capi {
+    text-align: center;
+}

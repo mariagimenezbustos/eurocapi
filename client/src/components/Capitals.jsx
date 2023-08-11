@@ -41,21 +41,20 @@ function Capitals() {
     return (
         <div id="Capitals">
             <div className="main-capitals">
-                <h1>European Capitals</h1>
+                <h1 className="euro-capi">European Capitals</h1>
 
-                <form onSubmit={handleSubmit}>
+                <form className="inputs" onSubmit={handleSubmit}>
                     <label>
                     <input
                         className="search-bar"
-                        placeholder="Find a capital"
+                        placeholder="Search by capital, country, language or currency"
                         onChange={(e) => setSearchTerm(e.target.value)}
                         value={searchTerm}>
                     </input>
                     </label>
                     <button type="submit">Search</button>
+                    {displayAll && <button className="all-btn" onClick={allCapitals}>Show all capitals</button>}
                 </form>
-
-                {displayAll && <button onClick={allCapitals}>Show all capitals</button>}
 
                 <div className="card-grid">
                     {capitals.map((capital) => (
