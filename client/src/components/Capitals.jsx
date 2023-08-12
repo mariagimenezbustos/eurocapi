@@ -57,7 +57,7 @@ function Capitals() {
                 </form>
 
                 <div className="card-grid">
-                    {capitals.map((capital) => (
+                    {capitals.length !== 0 ? capitals.map((capital) => (
                         <div key={capital.id} className="card">
                             <img src={capital.url} alt="Image" className="card-img" />
                             <h2 className="card-title">{capital.name}</h2>
@@ -66,9 +66,8 @@ function Capitals() {
                                 <Link to={`/capitals/${capital.id}`}>Discover {capital.name}</Link>
                             </button>
                         </div>
-                    ))}
+                    )) : <div className="no-result-message"><p>No results found!</p></div>}
                 </div>
-                
             </div>
         </div>
     )

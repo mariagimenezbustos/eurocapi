@@ -18,8 +18,11 @@ export default function Capital() {
         description_subtitle_3: "",
         description_text_3: "",
     });
+
     const { id } = useParams();
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [usernames, setUsernames] = useState({});
 
     useEffect(() => {
         getCapital();
@@ -29,6 +32,20 @@ export default function Capital() {
         getEuropeanCapitals();
     }, []);
 
+    useEffect(() => {
+        async function fetchUsernames() {
+            const newUsernameMap = { ...usernames };
+            for (const comment of comments) {
+                if (!newUsernameMap[comment.user_id]) {
+                    const username = await fetchUsername(comment.user_id);
+                    newUsernameMap[comment.user_id] = username;
+                }
+            }
+            setUsernames(newUsernameMap);
+        }
+        fetchUsernames();
+    }, [comments]);
+
     const getEuropeanCapitals = async () => {
         const response = await fetch("/api/capitals");
         const data = await response.json();
@@ -36,15 +53,31 @@ export default function Capital() {
     };
 
     const getCapital = async () => {
-        const response = await fetch(`/api/capitals/${id}`);
-        const data = await response.json();
-        setCapital(data);
+        try {
+            const response = await fetch(`/api/capitals/${id}`);
+            const data = await response.json();
+            setCapital(data.capital);
+            setComments(data.comments);
+        } catch (error) {
+            console.log("Error fetching capital and comments", error)
+        }
+    };
+
+    const fetchUsername = async (user_id) => {
+        try {
+            const response = await fetch(`/api/users/${user_id}`);
+            const userData = await response.json();
+            return userData.username;
+        } catch (error) {
+            console.error("Failed to fetch username:", error);
+            return null;
+        }
     };
 
     return (
         <div id="Capital">
-            <div className="capital-bar">
-                <ul>
+            <div>
+                <ul className="capital-list">
                     {europeanCapitals.map((c) => (
                         <li key={c.id}>
                             <Link to={`/capitals/${c.id}`}>{c.name}</Link>
@@ -54,7 +87,7 @@ export default function Capital() {
             </div>
             
             <div>
-                <img className="capital-img" src={capital.url}/>
+                <img className="capital-img" src={capital.url} alt={capital.name}/>
                 <div className="main-capital">
                     <div className="white-text">
                         <h1 className="capital-name">{capital.name}</h1>
@@ -80,11 +113,26 @@ export default function Capital() {
                         information about {capital.name} and all its unique facets, ensuring 
                         you have the most enriching experience possible.
                     </i>
-                    <br/>
-                    <button>
-                        <Link to={"/capitals"}>Go back</Link>
-                    </button>
+                </div>   
+
+                <div className="comments">
+                    <h4>Experiences from fellow Eurocapis</h4>
+                    <ul>
+                        {comments.map((comment) => (
+                            <li key={comment.id}>
+                                <h5>{comment.title}</h5>
+                                <p>By {usernames[comment.user_id]}</p>
+                                <p>Local: {comment.local ? "Yes" : "No"}</p>
+                                <p>Date: {comment.date}</p>
+                                <p>{comment.description}</p>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
+
+                <button className="go-back">
+                    <Link to={"/capitals"}>Go back</Link>
+                </button>
             </div>
         </div>
     )

@@ -1,11 +1,12 @@
 .navbar {
   position: fixed;
   top: 0;
+  left: 0;
   background-color: #333;
   text-align: center;
   overflow: hidden;
-  width: 110%;
-  margin-left: -10px;
+  width: 100vw;
+  /* margin-left: -10px; */
 }
 
 .navbar a {
@@ -32,8 +33,9 @@ footer {
   position: relative;
   background-color: #333;
   overflow: hidden;
-  width: 110%;
-  margin-left: -10px;
+  width: 100vw;
+  /* margin-left: -10px; */
   color: white;
   padding-left: 20px;
+  left: 0;
 }

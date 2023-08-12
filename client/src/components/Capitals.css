@@ -81,3 +81,14 @@ h2, h3, input {
 .inputs, .euro-capi {
     text-align: center;
 }
+
+.no-result-message {
+    width: 50%;
+    border-radius: 1rem;
+    box-shadow: 0px 10px 8px #999;
+    display: flex;
+    background-color: lightgray;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}

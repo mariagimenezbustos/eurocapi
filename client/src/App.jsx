@@ -1,4 +1,3 @@
-import { useState } from "react"
 import "./App.css"
 import Capitals from "./components/Capitals"
 import AddPost from "./components/AddPost"

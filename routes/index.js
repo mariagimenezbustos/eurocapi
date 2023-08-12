@@ -2,13 +2,8 @@ var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.send({ title: 'Express' });
-// });
-
 // /* GET all capitals */
-// router.get("/capitals", async (req, res) => {
+// router.get("/", async (req, res) => {
 //   console.log(req.query);
 //   try {
 //     const results = await db("SELECT * FROM capital ORDER BY id ASC;");
@@ -18,7 +13,7 @@ const db = require("../model/helper");
 //   }
 // });
 // /* GET filtering */
-// router.get("/capitals", async (req, res) => {
+// router.get("/", async (req, res) => {
 //   const search = req.query.search;
 //   console.log("SQL Query:", search);
 
@@ -33,7 +28,7 @@ const db = require("../model/helper");
 // });
 
 /* GET all capitals or filtering */
-router.get("/capitals", async (req, res) => {
+router.get("/", async (req, res) => {
   if (!req.query.search) {
     console.log(req.query);
     try {
@@ -58,19 +53,24 @@ router.get("/capitals", async (req, res) => {
 });
 
 /* GET capital by id */
-router.get("/capitals/:capital_id", async (req, res) => {
+router.get("/:capital_id", async (req, res) => {
   const id = req.params.capital_id;
 
   try {
-    const results = await db(`SELECT * FROM capital WHERE id = ${id};`);
-    res.send(results.data[0]);
+    const capitalResults = await db(`SELECT * FROM capital WHERE id = ${id};`);
+    const commentsResults = await db(`SELECT * FROM post WHERE capital_id = ${id};`);
+
+    const capital = capitalResults.data[0];
+    const comments = commentsResults.data;
+
+    res.send({ capital, comments });
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
 /* UPDATE population by id */
-router.put("/capitals/:capital_id", async (req, res) => {
+router.put("/:capital_id", async (req, res) => {
   const id = req.params.capital_id;
   const { population } = req.body;
   console.log("REQ.BODY", req.body);
@@ -86,18 +86,31 @@ router.put("/capitals/:capital_id", async (req, res) => {
 });
 
 /* POST comment in capital */
-// router.post("/capitals/:capital_id", async (req, res) => {
-//   const id = req.params.capital_id;
-//   const { title, description, local, date } = req.body;
+router.post("/:capital_id", async (req, res) => {
+  const { capital_id } = req.params;
+  const { title, description, local } = req.body;
+
+  const currentDate = new Date();
+  // the padStart method pads a string with another one until the goal length is met
+  // JS returns the month in zero-based indexing, so JAN is represented as 0 and therefore we need to add 1
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const year = currentDate.getFullYear();
+  const date = `${year}-${month}-${day}`;
   
-//   try {
-//     await db(`INSERT INTO post (title, description, local, date) VALUES ("${title}", "${description}", ${local}, "${date}");`);
-//     const results = await db("")
-//   } catch (error) {
-//     console.log("comment not posted", error);
-//     res.status(500).send(error);
-//   }
-// });
+  try {
+    await db(
+      `INSERT INTO post (capital_id, title, description, local, date) VALUES (${capital_id}, "${title}", "${description}", ${local}, "${date}")`,
+    );
+
+    res.status(200).send({message: "Post added!"});
+    console.log("Post added");
+
+  } catch (error) {
+    console.log("Comment not posted", error);
+    res.status(500).send({ error: "Internal server error" });
+  }
+});
 
 /* DELETE comment in capital */
 
