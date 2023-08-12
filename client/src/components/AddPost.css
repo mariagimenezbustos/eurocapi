@@ -4,9 +4,10 @@
     text-align: justify;
     text-justify: inter-word;
     box-sizing: border-box;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
     min-height: 80vh;
+    box-sizing: border-box;
 }
 
 .title-input, .description-input {
@@ -17,10 +18,10 @@
     text-align: left;
 }
 
-.title-tag, .description-tag, .submit, .local {
+.title-tag, .description-tag, .submit, .local, .user {
     margin-top: 15px;
 }
 
-select, .checkbox {
+select, .checkbox, .username {
     margin-left: 10px;
 }

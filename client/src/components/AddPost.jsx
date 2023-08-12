@@ -101,7 +101,7 @@ function AddPost() {
                             value={project.capital_id}
                             onChange={handleInputChange}
                             >
-                                <option value="">Choose</option>
+                                <option>Choose</option>
                                 {europeanCapitals.map((c) => (
                                     <option
                                     key={c.id}
@@ -131,6 +131,7 @@ function AddPost() {
                         Please provide your username
                         <input
                             name="username"
+                            className="username"
                             value={project.username}
                             onChange={handleInputChange}
                         />
