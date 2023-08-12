@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./Capital.css"
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 export default function Capital() {
     const [capital, setCapital] = useState({
         url: "",
@@ -23,9 +25,11 @@ export default function Capital() {
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
     const [comments, setComments] = useState([]);
     const [usernames, setUsernames] = useState({});
+    const [weather, setWeather] = useState(null);
 
     useEffect(() => {
         getCapital();
+        getWeather();
     }, [id]);
 
     useEffect(() => {
@@ -74,6 +78,23 @@ export default function Capital() {
         }
     };
 
+    const getWeather = async () => {
+        setWeather("");
+
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${capital.name}&appid=${API_KEY}&units=metric`)
+            const data = await response.json();
+            console.log(data);
+
+            if (!response.ok) throw new Error(data.message);
+
+            setWeather(data);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     return (
         <div id="Capital">
             <div>
@@ -98,6 +119,10 @@ export default function Capital() {
                         <p className="basics">Population:<br/>{capital.population} inhabitants</p>
                         <p className="basics">Official languages:<br/>{capital.language}</p>
                         <p className="basics">Currency:<br/>{capital.currency}</p>
+                    </div>
+
+                    <div>
+                        {weather && <p>Temperature: {weather.main.temp} °C</p>}
                     </div>
 
                     <h3>{capital.description_title}</h3>

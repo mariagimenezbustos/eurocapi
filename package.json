@@ -1,5 +1,7 @@
 {
   "name": "my-express-app",
+  "author": "Maria Gimenez Bustos",
+  "license": "Propietary",
   "version": "0.0.0",
   "private": true,
   "scripts": {
