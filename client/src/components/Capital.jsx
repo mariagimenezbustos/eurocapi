@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./Capital.css"
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY; // this still needs to get fixed
 
 export default function Capital() {
     const [capital, setCapital] = useState({
@@ -29,7 +29,6 @@ export default function Capital() {
 
     useEffect(() => {
         getCapital();
-        getWeather();
     }, [id]);
 
     useEffect(() => {
@@ -50,6 +49,10 @@ export default function Capital() {
         fetchUsernames();
     }, [comments]);
 
+    useEffect(() => {
+        if (capital.name) getWeather();
+    }, [capital.name]);
+
     const getEuropeanCapitals = async () => {
         const response = await fetch("/api/capitals");
         const data = await response.json();
@@ -60,8 +63,11 @@ export default function Capital() {
         try {
             const response = await fetch(`/api/capitals/${id}`);
             const data = await response.json();
+
             setCapital(data.capital);
             setComments(data.comments);
+
+            if (capital.name) await getWeather();
         } catch (error) {
             console.log("Error fetching capital and comments", error)
         }
@@ -79,16 +85,14 @@ export default function Capital() {
     };
 
     const getWeather = async () => {
-        setWeather("");
 
         try {
             const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${capital.name}&appid=${API_KEY}&units=metric`)
             const data = await response.json();
             console.log(data);
 
-            if (!response.ok) throw new Error(data.message);
-
-            setWeather(data);
+            if(response.ok) setWeather(data.main.temp);
+            else if (!response.ok) throw new Error(data.message);
 
         } catch (error) {
             console.log(error.message);
@@ -119,10 +123,7 @@ export default function Capital() {
                         <p className="basics">Population:<br/>{capital.population} inhabitants</p>
                         <p className="basics">Official languages:<br/>{capital.language}</p>
                         <p className="basics">Currency:<br/>{capital.currency}</p>
-                    </div>
-
-                    <div>
-                        {weather && <p>Temperature: {weather.main.temp} °C</p>}
+                        {/* {weather && <p className="basics">Current temperature:<br/>{weather} °C</p>} */}
                     </div>
 
                     <h3>{capital.description_title}</h3>
