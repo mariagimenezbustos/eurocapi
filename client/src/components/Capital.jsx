@@ -134,6 +134,16 @@ export default function Capital() {
                     <h4>{capital.description_subtitle_3}</h4>
                     <p>{capital.description_text_3}</p>
 
+                    {capital.name === "Kiev" &&
+                    <div className="important-message">
+                        <h5>
+                            Important Travel Advisory for Kiev, Ukraine:
+                        </h5>
+                        <p>
+                            Considering the current uncertainties and potential challenges, we strongly advise travelers to exercise caution when planning a visit to Kiev. While the city's captivating history and cultural attractions are alluring, it's crucial to prioritize safety and well-being. Stay informed about travel advisories, health guidelines, and local restrictions that might affect your trip. Prioritize your health and stay connected with official government sources and local authorities for the latest updates. Your safety is paramount, and we hope for a time when exploring Kiev's wonders can be enjoyed without reservation. Until then, make informed decisions and ensure your travel plans align with prevailing conditions.
+                        </p>
+                    </div>}
+
                     <i>
                         Note: Eurocapi is dedicated to providing accurate and comprehensive 
                         information about {capital.name} and all its unique facets, ensuring 
@@ -143,6 +153,7 @@ export default function Capital() {
 
                 <div className="comments">
                     <h4>Experiences from fellow Eurocapis</h4>
+        
                     <ul>
                         {comments.map((comment) => (
                             <li key={comment.id}>
