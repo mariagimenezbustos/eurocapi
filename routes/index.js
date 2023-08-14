@@ -88,7 +88,7 @@ router.put("/:capital_id", async (req, res) => {
 /* POST comment in capital */
 router.post("/:capital_id", async (req, res) => {
   const { capital_id } = req.params;
-  const { title, description, local } = req.body;
+  const { title, description, local, user_id } = req.body;
 
   const currentDate = new Date();
   // the padStart method pads a string with another one until the goal length is met
@@ -100,7 +100,7 @@ router.post("/:capital_id", async (req, res) => {
   
   try {
     await db(
-      `INSERT INTO post (capital_id, title, description, local, date) VALUES (${capital_id}, "${title}", "${description}", ${local}, "${date}")`,
+      `INSERT INTO post (capital_id, title, description, local, date, user_id) VALUES (${capital_id}, "${title}", "${description}", ${local}, "${date}", ${user_id});`,
     );
 
     res.status(200).send({message: "Post added!"});

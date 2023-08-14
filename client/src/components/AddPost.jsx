@@ -41,20 +41,21 @@ function AddPost() {
         console.log("Capital ID:", project.capital_id);
 
         // Fetch user ID based on the provided username
-        const userResponse = await fetch(`/api/users?username=${project.username}`);
+        const userResponse = await fetch(`/api/users/${project.username}`);
 
         if (userResponse.ok) {
             const userData = await userResponse.json();
 
             const newComment = {
-                capital_id: project.capital_id,
                 local: project.local,
                 title: project.title,
                 description: project.description,
                 user_id: userData.id,
             };
+
+            console.log(newComment);
     
-            const response = await fetch(`/capitals/${project.capital_id}`, {
+            const response = await fetch(`/api/capitals/${project.capital_id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,14 +64,13 @@ function AddPost() {
             });
         
             if (response.ok) {
-                setProject((state) => ({
-                    ...state,
+                setProject({
                     capital_id: "",
                     local: false,
                     title: "",
                     description: "",
                     username: "",
-                }));
+                });
 
                 // Redirecting to the capital's landing page
                 const capitalId = europeanCapitals.find((capital) => capital.id === project.capital_id).id;

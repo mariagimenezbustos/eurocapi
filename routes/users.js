@@ -15,10 +15,10 @@ router.get("/", async (req, res) => {
 
 /* GET user by user_id */
 router.get("/:user_id", async (req, res) => {
-    const id = req.params.user_id;
+    const {username} = req.params;
   
     try {
-      const results = await db(`SELECT * FROM user WHERE id = ${id};`);
+      const results = await db(`SELECT * FROM user WHERE username = "${username}";`);
   
       if (results.data.length === 1) res.send(results.data[0]);
       else res.status(404).send("User not found");
