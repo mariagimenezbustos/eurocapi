@@ -24,7 +24,7 @@ export default function Capital() {
     const { id } = useParams();
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
     const [comments, setComments] = useState([]);
-    const [usernames, setUsernames] = useState({});
+    // const [usernames, setUsernames] = useState({});
     const [weather, setWeather] = useState(null);
 
     useEffect(() => {
@@ -35,19 +35,21 @@ export default function Capital() {
         getEuropeanCapitals();
     }, []);
 
-    useEffect(() => {
-        async function fetchUsernames() {
-            const newUsernameMap = { ...usernames };
-            for (const comment of comments) {
-                if (!newUsernameMap[comment.user_id]) {
-                    const username = await fetchUsername(comment.user_id);
-                    newUsernameMap[comment.user_id] = username;
-                }
-            }
-            setUsernames(newUsernameMap);
-        }
-        fetchUsernames();
-    }, [comments]);
+    // useEffect(() => {
+    //     async function fetchUsernames() {
+    //         const newUsernameMap = { ...usernames };
+    //         for (const comment of comments) {
+    //             if (comment.username && !newUsernameMap[comment.username]) {
+    //                 const username = await fetchUsername(comment.username);
+    //                 console.log("Fetched username:", username)
+    //                 newUsernameMap[comment.username] = username;
+    //             }
+    //         }
+    //         console.log("New usernames map:", newUsernameMap);
+    //         setUsernames(newUsernameMap);
+    //     }
+    //     fetchUsernames();
+    // }, [comments]);
 
     useEffect(() => {
         if (capital.name) getWeather();
@@ -73,22 +75,23 @@ export default function Capital() {
         }
     };
 
-    const fetchUsername = async (user_id) => {
-        try {
-            const response = await fetch(`/api/users/${user_id}`);
-            const userData = await response.json();
-            return userData.username;
-        } catch (error) {
-            console.error("Failed to fetch username:", error);
-            return null;
-        }
-    };
+    // const fetchUsername = async (username) => {
+    //     try {
+    //         const response = await fetch(`/api/users/${username}`);
+    //         console.log("response", response);
+    //         const userData = await response.json();
+    //         console.log("userData", userData);
+    //         return userData.username;
+    //     } catch (error) {
+    //         console.error("Failed to fetch username:", error);
+    //         return null;
+    //     }
+    // };
 
     const getWeather = async () => {
         try {
             const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${capital.name}&appid=${API_KEY}&units=metric`)
             const data = await response.json();
-            console.log(data);
 
             if(response.ok) setWeather(data.main.temp);
             else if (!response.ok) throw new Error(data.message);
@@ -157,7 +160,7 @@ export default function Capital() {
                         {comments.map((comment) => (
                             <li key={comment.id}>
                                 <h5>{comment.title}</h5>
-                                <p>By {usernames[comment.user_id]}</p>
+                                <p>By {comment.username || "Unknown User"}</p>
                                 <p>Local: {comment.local ? "Yes" : "No"}</p>
                                 <p>Date: {comment.date}</p>
                                 <p>{comment.description}</p>

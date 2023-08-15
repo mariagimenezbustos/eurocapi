@@ -88,17 +88,29 @@ router.put("/:capital_id", async (req, res) => {
 /* POST comment in capital */
 router.post("/:capital_id", async (req, res) => {
   const { capital_id } = req.params;
-  const { title, description, local, user_id } = req.body;
+  const { title, description, local, username } = req.body;
 
   const currentDate = new Date();
   // the padStart method pads a string with another one until the goal length is met
   // JS returns the month in zero-based indexing, so JAN is represented as 0 and therefore we need to add 1
-  const day = String(currentDate.getDate()).padStart(2, "0");
+  const day = String(currentDate.getDate() + 1).padStart(2, "0");
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const year = currentDate.getFullYear();
   const date = `${year}-${month}-${day}`;
-  
+
   try {
+    const user = await db(`SELECT id FROM user WHERE username = "${username}";`);
+    console.log(user);
+    const result = user.data;
+    console.log(result);
+  
+    if (result.length === 0) {
+      res.status(404).send({ error: "User not found" });
+      return;
+    }
+
+    const user_id = result[0].id;
+
     await db(
       `INSERT INTO post (capital_id, title, description, local, date, user_id) VALUES (${capital_id}, "${title}", "${description}", ${local}, "${date}", ${user_id});`,
     );

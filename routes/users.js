@@ -13,9 +13,9 @@ router.get("/", async (req, res) => {
     }
 });
 
-/* GET user by user_id */
-router.get("/:user_id", async (req, res) => {
-    const {username} = req.params;
+/* GET user by username */
+router.get("/:username", async (req, res) => {
+    const { username } = req.params;
   
     try {
       const results = await db(`SELECT * FROM user WHERE username = "${username}";`);

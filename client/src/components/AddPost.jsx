@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./AddPost.css";
-import { Link } from "react-router-dom";
 
 function AddPost() {
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
@@ -32,29 +31,32 @@ function AddPost() {
         }));
     };
 
-    const getUser = async (req, res) => {
-        const { username } = req.query
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Capital ID:", project.capital_id);
 
-        // Fetch user ID based on the provided username
-        const userResponse = await fetch(`/api/users/${project.username}`);
+        try {
+            // Fetch user ID based on the provided username
+            const userResponse = await fetch(`/api/users/${project.username}`);
 
-        if (userResponse.ok) {
+            if(!userResponse.ok) {
+                console.error("Failed to fetch user data");
+                return;
+            }
+
             const userData = await userResponse.json();
+            console.log(userData);
 
             const newComment = {
                 local: project.local,
                 title: project.title,
                 description: project.description,
                 user_id: userData.id,
+                username: project.username,
             };
 
             console.log(newComment);
-    
+        
             const response = await fetch(`/api/capitals/${project.capital_id}`, {
                 method: "POST",
                 headers: {
@@ -62,6 +64,8 @@ function AddPost() {
                 },
                 body: JSON.stringify(newComment),
             });
+
+            console.log(response.status, response.statusText);
         
             if (response.ok) {
                 setProject({
@@ -72,16 +76,12 @@ function AddPost() {
                     username: "",
                 });
 
-                // Redirecting to the capital's landing page
-                const capitalId = europeanCapitals.find((capital) => capital.id === project.capital_id).id;
-                return <Link to={`/capitals/${capitalId}`}/>
             } else {
                 // Handle error
                 console.error("Failed to add comment.");
             }
-
-        } else {
-            console.error("Failed to fetch user data");
+        } catch (error) {
+            console.error("Error submitting comment:", error);
         }
     };
 
@@ -162,6 +162,7 @@ function AddPost() {
                     </div>
                     
                 </form>
+
             </div>
         </div>
     )

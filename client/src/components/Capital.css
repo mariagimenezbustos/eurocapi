@@ -99,3 +99,7 @@ i {
 .comments {
     margin: 20px;
 }
+
+.important-message {
+    color: red;
+}
