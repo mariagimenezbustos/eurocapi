@@ -24,7 +24,6 @@ export default function Capital() {
     const { id } = useParams();
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
     const [comments, setComments] = useState([]);
-    // const [usernames, setUsernames] = useState({});
     const [weather, setWeather] = useState(null);
 
     useEffect(() => {
@@ -34,22 +33,6 @@ export default function Capital() {
     useEffect(() => {
         getEuropeanCapitals();
     }, []);
-
-    // useEffect(() => {
-    //     async function fetchUsernames() {
-    //         const newUsernameMap = { ...usernames };
-    //         for (const comment of comments) {
-    //             if (comment.username && !newUsernameMap[comment.username]) {
-    //                 const username = await fetchUsername(comment.username);
-    //                 console.log("Fetched username:", username)
-    //                 newUsernameMap[comment.username] = username;
-    //             }
-    //         }
-    //         console.log("New usernames map:", newUsernameMap);
-    //         setUsernames(newUsernameMap);
-    //     }
-    //     fetchUsernames();
-    // }, [comments]);
 
     useEffect(() => {
         if (capital.name) getWeather();
@@ -74,19 +57,6 @@ export default function Capital() {
             console.log("Error fetching capital and comments", error)
         }
     };
-
-    // const fetchUsername = async (username) => {
-    //     try {
-    //         const response = await fetch(`/api/users/${username}`);
-    //         console.log("response", response);
-    //         const userData = await response.json();
-    //         console.log("userData", userData);
-    //         return userData.username;
-    //     } catch (error) {
-    //         console.error("Failed to fetch username:", error);
-    //         return null;
-    //     }
-    // };
 
     const getWeather = async () => {
         try {
@@ -162,7 +132,7 @@ export default function Capital() {
                                 <h5>{comment.title}</h5>
                                 <p>By {comment.username || "Unknown User"}</p>
                                 <p>Local: {comment.local ? "Yes" : "No"}</p>
-                                <p>Date: {comment.date}</p>
+                                <p>Date: {(comment.date).slice(0, 10)}</p>
                                 <p>{comment.description}</p>
                             </li>
                         ))}

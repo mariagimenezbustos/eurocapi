@@ -58,7 +58,7 @@ router.get("/:capital_id", async (req, res) => {
 
   try {
     const capitalResults = await db(`SELECT * FROM capital WHERE id = ${id};`);
-    const commentsResults = await db(`SELECT * FROM post WHERE capital_id = ${id};`);
+    const commentsResults = await db(`SELECT * FROM post JOIN user ON post.user_id = user.id WHERE post.capital_id = ${id};`);
 
     const capital = capitalResults.data[0];
     const comments = commentsResults.data;
