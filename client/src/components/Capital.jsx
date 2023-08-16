@@ -73,7 +73,7 @@ export default function Capital() {
 
     return (
         <div id="Capital">
-            <div>
+            <div className="capital-div">
                 <ul className="capital-list">
                     {europeanCapitals.map((c) => (
                         <li key={c.id}>
@@ -93,19 +93,19 @@ export default function Capital() {
 
                     <div className="basics-grid">
                         <p className="basics">Population:<br/>{capital.population} inhabitants</p>
-                        <p className="basics">Official languages:<br/>{capital.language}</p>
+                        <p className="basics">Official language(s):<br/>{capital.language}</p>
                         <p className="basics">Currency:<br/>{capital.currency}</p>
                         {weather && <p className="basics">Current temperature:<br/>{weather} °C</p>}
                     </div>
 
                     <div>
                         <h3 classname="description-title">{capital.description_title}</h3>
-                        <h4 classname="description-title">{capital.description_subtitle_1}</h4>
-                        <p>{capital.description_text_1}</p>
-                        <h4 classname="description-title">{capital.description_subtitle_2}</h4>
-                        <p>{capital.description_text_2}</p>
-                        <h4 classname="description-title">{capital.description_subtitle_3}</h4>
-                        <p>{capital.description_text_3}</p>
+                        <h4 classname="description-subtitle">{capital.description_subtitle_1}</h4>
+                        <p className="description-text">{capital.description_text_1}</p>
+                        <h4 classname="description-subtitle">{capital.description_subtitle_2}</h4>
+                        <p className="description-text">{capital.description_text_2}</p>
+                        <h4 classname="description-subtitle">{capital.description_subtitle_3}</h4>
+                        <p className="description-text">{capital.description_text_3}</p>
                     </div>
 
                     {capital.name === "Kiev" &&
@@ -117,29 +117,29 @@ export default function Capital() {
                             Considering the current uncertainties and potential challenges, we strongly advise travelers to exercise caution when planning a visit to Kiev. While the city's captivating history and cultural attractions are alluring, it's crucial to prioritize safety and well-being. Stay informed about travel advisories, health guidelines, and local restrictions that might affect your trip. Prioritize your health and stay connected with official government sources and local authorities for the latest updates. Your safety is paramount, and we hope for a time when exploring Kiev's wonders can be enjoyed without reservation. Until then, make informed decisions and ensure your travel plans align with prevailing conditions.
                         </p>
                     </div>}
-
-                    <i>
-                        Note: Eurocapi is dedicated to providing accurate and comprehensive 
-                        information about {capital.name} and all its unique facets, ensuring 
-                        you have the most enriching experience possible.
-                    </i>
                 </div>   
 
-                <div className="comments">
+                {comments.length ? <div className="comments">
                     <h4>Experiences from fellow Eurocapis</h4>
         
                     <ul>
                         {comments.map((comment) => (
                             <li key={comment.id}>
-                                <h5>{comment.title}</h5>
-                                <p>By {comment.username || "Unknown User"}</p>
-                                <p>Local: {comment.local ? "Yes" : "No"}</p>
-                                <p>Date: {(comment.date).slice(0, 10)}</p>
-                                <p>{comment.description}</p>
+                                <div className="comment">
+                                    <h5 className="comment-text">{comment.title}</h5>
+                                    <p className="comment-text">By {comment.username || "Unknown User"}</p>
+                                    <p className="comment-text">Local: {comment.local ? "Yes" : "No"}</p>
+                                    <p className="comment-text">Date: {(comment.date).slice(0, 10)}</p>
+                                    <p className="comment-text">{comment.description}</p>
+                                </div>
                             </li>
                         ))}
                     </ul>
-                </div>
+                </div> : null}
+
+                <p className="note">
+                    Note: Eurocapi is dedicated to providing accurate and comprehensive information about {capital.name} and all its unique facets, ensuring you have the most enriching experience possible.
+                </p>
 
                 <button className="go-back">
                     <Link to={"/capitals"}>Go back</Link>

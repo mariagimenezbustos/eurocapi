@@ -95,7 +95,7 @@ function AddPost() {
                     onSubmit={handleSubmit}
                     >
 
-                    <label>
+                    <label className="label">
                         Select a capital
                         <select
                             name="capital_id"
@@ -116,7 +116,7 @@ function AddPost() {
 
                     <br />
 
-                    <label>
+                    <label className="label">
                         Mark if you're a local
                         <input
                             type="checkbox"
@@ -129,7 +129,7 @@ function AddPost() {
 
                     <br />
 
-                    <label>
+                    <label className="label">
                         Please provide your username
                         <input
                             name="username"
@@ -139,7 +139,7 @@ function AddPost() {
                         />
                     </label>
 
-                    <label>
+                    <label className="label">
                         <h3 className="title-tag">Title</h3>
                         <input
                             className="title-input"
@@ -149,7 +149,7 @@ function AddPost() {
                         />
                     </label>
 
-                    <label>
+                    <label className="label">
                         <h3 className="description-tag">Description</h3>
                         <textarea
                             className="description-input"
@@ -160,7 +160,7 @@ function AddPost() {
                     </label>
 
                     <div className = "submit">
-                        <button>SUBMIT</button>
+                        <button className="button">SUBMIT</button>
                     </div>
                     
                 </form>

@@ -2,6 +2,7 @@
     padding: 70px 20px;
     text-align: justify;
     text-justify: inter-word;
+    color: #22223b;
 }
 
 h3 {
@@ -9,9 +10,20 @@ h3 {
 }
 
 .end {
+    margin: 30px 20px;
     font-weight: 700;
 }
 
-.text, .title, .end, .link {
-    padding: 10px 20px;
+.text, .title-1, .title-2, .link {
+    margin: 10px 20px;
+}
+
+.title-1 {
+    font-size: 70px;
+    text-align: center;
+}
+
+.title-2 {
+    font-size: 30px;
+    text-align: center;
 }

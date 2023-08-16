@@ -4,10 +4,11 @@
     justify-content: center;
     text-justify: inter-word;
     text-align: justify;
+    position: inherit;
+    color: #22223b;
 }
 
 .capital-list {
-    list-style-type: none;
     text-align: left;
     background-color: #f2e9e4;
     padding-top: 70px;
@@ -17,6 +18,15 @@
     min-height: 100vh;
     width: 20vw;
     margin: 0;
+    margin-left: -20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.capital-div {
+    background-color: #f2e9e4;
 }
 
 li {
@@ -25,12 +35,12 @@ li {
 
 .capital-list a:link, ul a:visited {
     text-decoration: none;
-    color: black;
+    color: #22223b;
 }
 
 button a:link {
     text-decoration: none;
-    color: black;
+    color: #22223b;
 }
 
 .capital-img {
@@ -46,27 +56,31 @@ button a:link {
 .white-text {
     color: white;
     padding-bottom: 10px;
+    height: 275px;
 }
 
 .capital-name {
     margin-top: 70px;
-    font-size: 100px; /* change font size */
-    margin-bottom: -20px;
+    font-size: 9.5vw;
+    position: flex;
 }
 
 .capital-country {
-    font-size: 50px;
+    font-size: 4vw;
+    position: flex;
+    margin-top: 10px;
 }
 
-i {
-    padding-bottom: 70px;
+.note {
     font-size: small;
+    margin: 20px;
+    font-style: italic;
 }
 
 .main-capital {
     padding-left: 20px;
     padding-right: 20px;
-    max-width: 80vw;
+    width: 80vw;
 }
 
 .basics { 
@@ -80,29 +94,71 @@ i {
     width: 15rem;
     height: fit-content;
     padding: 5px;
+    position: static;
 }
 
 .basics-grid {
-    margin: 110px auto 30px auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
     column-gap: 30px;
-    row-gap: 30px;
+    row-gap: 10px;
     justify-content: 60%;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .go-back {
     margin: 20px;
+    text-align: center;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: #9a8c98;
+    text-decoration: none;
+    color: white;
 }
 
-.comments {
-    margin: 20px;
+.go-back a:visited {
+    color: white;
 }
 
 .important-message {
     color: red;
 }
 
-.description-title{
-    margin: 10px auto;
+h3, h4 {
+    margin: 35px auto 20px auto;
+    text-align: left;
+}
+
+.description-text {
+    margin: auto auto 35px auto;
+}
+
+.comment {
+    margin: 10px auto 10px -40px;
+    border-radius: 1rem;
+    border: 1px solid #22223b;
+    box-shadow: 0px 10px 8px #4a4e69;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: fit-content;
+    justify-content: center;
+}
+
+.comments {
+    margin: 20px 20px auto 20px;
+}
+
+.comments h4 {
+    font-size: larger;
+}
+
+.comments h5 {
+    font-size: large;
+}
+
+.comment-text {
+    margin: 10px 20px;
 }

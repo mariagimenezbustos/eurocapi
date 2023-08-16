@@ -6,8 +6,8 @@ function Home() {
     return (
         <div>
             <div className="main">
-                <h1 className="title">WELCOME TO EUROCAPI</h1>
-                <h2 className="title">Your Gateway to European Capitals and Beyond!</h2>
+                <h1 className="title-1">WELCOME TO EUROCAPI</h1>
+                <h2 className="title-2">Your Gateway to European Capitals and Beyond!</h2>
                 <div className="text">
                     <h3>
                         🌍 Explore the Heart of Europe, One Capital at a Time 🏰

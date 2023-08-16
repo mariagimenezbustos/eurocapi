@@ -1,5 +1,6 @@
 #Capitals {
     text-align: center;
+    color: #22223b;
 }
 
 .main-capitals {
@@ -7,10 +8,6 @@
     text-align: justify;
     text-justify: inter-word;
     margin-bottom: 70px;
-}
-
-h2, h3, input {
-    text-align: left;
 }
 
 .search-bar {
@@ -53,7 +50,7 @@ h2, h3, input {
     padding: 0.5rem 1rem;
     background-color: #9a8c98;
     text-decoration: none;
-    margin: 0.5rem;
+    margin: 10px auto;
 }
 
 .card-btn a:link {
@@ -72,10 +69,18 @@ h2, h3, input {
     column-gap: 30px;
     row-gap: 30px;
     justify-content: center;
+    margin: auto 20px;
 }
 
 .all-btn {
-    margin: 10px;
+    margin: 10px 5px 20px 5px;
+    text-align: center;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: #9a8c98;
+    text-decoration: none;
+    color: white;
 }
 
 .inputs, .euro-capi {
@@ -83,14 +88,15 @@ h2, h3, input {
 }
 
 .no-result-message {
-    width: 50%;
-    border-radius: 1rem;
-    box-shadow: 0px 10px 8px #f2e9e4;
+    border-radius: 5px;
+    box-shadow: 0px 5px 8px #f2e9e4;
     display: flex;
     background-color: #c9ada7;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+    color: white;
+    text-align: center;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    margin: auto auto 400px auto;
 }
 
 .euro-capi {

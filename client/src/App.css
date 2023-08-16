@@ -12,7 +12,6 @@
   text-align: center;
   overflow: hidden;
   width: 100%;
-  /* margin-left: -10px; */
 }
 
 .navbar a {
@@ -30,12 +29,14 @@
 }
 
 footer {
-  bottom: 0;
   position: relative;
   background-color: #4a4e69;
   overflow: hidden;
   width: 100%;
   color: white;
   padding: 14px 20px;
-  left: 0;
+}
+
+button:hover{
+  cursor: pointer;
 }
