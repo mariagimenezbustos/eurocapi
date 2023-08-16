@@ -92,7 +92,7 @@ router.post("/:capital_id", async (req, res) => {
 
   const currentDate = new Date();
   // the padStart method pads a string with another one until the goal length is met
-  // JS returns the month in zero-based indexing, so JAN is represented as 0 and therefore we need to add 1
+  // JS returns the day and month in zero-based indexing, so JAN is represented as 0 and therefore we need to add 1
   const day = String(currentDate.getDate() + 1).padStart(2, "0");
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const year = currentDate.getFullYear();
