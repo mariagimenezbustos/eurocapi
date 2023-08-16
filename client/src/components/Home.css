@@ -1,5 +1,5 @@
 .main {
-    margin: 70px 20px;
+    padding: 70px 20px;
     text-align: justify;
     text-justify: inter-word;
 }
@@ -8,6 +8,10 @@ h3 {
     font-weight: 700;
 }
 
-.seventh {
+.end {
     font-weight: 700;
+}
+
+.text, .title, .end, .link {
+    padding: 10px 20px;
 }

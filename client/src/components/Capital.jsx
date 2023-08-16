@@ -98,13 +98,15 @@ export default function Capital() {
                         {weather && <p className="basics">Current temperature:<br/>{weather} °C</p>}
                     </div>
 
-                    <h3>{capital.description_title}</h3>
-                    <h4>{capital.description_subtitle_1}</h4>
-                    <p>{capital.description_text_1}</p>
-                    <h4>{capital.description_subtitle_2}</h4>
-                    <p>{capital.description_text_2}</p>
-                    <h4>{capital.description_subtitle_3}</h4>
-                    <p>{capital.description_text_3}</p>
+                    <div>
+                        <h3 classname="description-title">{capital.description_title}</h3>
+                        <h4 classname="description-title">{capital.description_subtitle_1}</h4>
+                        <p>{capital.description_text_1}</p>
+                        <h4 classname="description-title">{capital.description_subtitle_2}</h4>
+                        <p>{capital.description_text_2}</p>
+                        <h4 classname="description-title">{capital.description_subtitle_3}</h4>
+                        <p>{capital.description_text_3}</p>
+                    </div>
 
                     {capital.name === "Kiev" &&
                     <div className="important-message">

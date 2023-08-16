@@ -88,9 +88,10 @@ function AddPost() {
     return (
         <div id="AddPost">
             <div>
-                <h1>Share your experience!</h1>
+                <h1 className="share-experience">Share your experience!</h1>
 
                 <form 
+                    className="experience-form"
                     onSubmit={handleSubmit}
                     >
 
@@ -98,6 +99,7 @@ function AddPost() {
                         Select a capital
                         <select
                             name="capital_id"
+                            className="capital"
                             value={project.capital_id}
                             onChange={handleInputChange}
                             >
@@ -114,7 +116,7 @@ function AddPost() {
 
                     <br />
 
-                    <label className="local">
+                    <label>
                         Mark if you're a local
                         <input
                             type="checkbox"
@@ -127,7 +129,7 @@ function AddPost() {
 
                     <br />
 
-                    <label className="user">
+                    <label>
                         Please provide your username
                         <input
                             name="username"
