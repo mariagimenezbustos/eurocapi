@@ -27,7 +27,7 @@ CREATE TABLE capital(
     `description_subtitle_2` VARCHAR(100) NOT NULL,
     `description_text_2` LONGTEXT NOT NULL,
     `description_subtitle_3` VARCHAR(100) NOT NULL,
-    `description_text_3` LONGTEXT NOT NULL,
+    `description_text_3` LONGTEXT NOT NULL
 );
 CREATE TABLE post(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
