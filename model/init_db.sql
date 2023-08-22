@@ -1,6 +1,6 @@
-DROP DATABASE if exists eurocapi;
-CREATE DATABASE eurocapi;
-USE eurocapi;
+DROP DATABASE if exists eurocapital;
+CREATE DATABASE eurocapital;
+USE eurocapital;
 
 DROP TABLE if exists post;
 DROP TABLE if exists user;
@@ -740,3 +740,62 @@ VALUES
     ("Maria", "Müller", "maria_mueller", "MariaMueller"),
     ("José", "Ortiz", "jose_ortiz", "JoseOrtiz"),
     ("Alexandra", "Green", "alexandra_green", "AlexandraGreen");
+
+INSERT INTO post (capital_id, title, description, local, date, user_id)
+VALUES
+    (
+        12,
+        "Most beautiful city ever!",
+        "No comments—just go there right before Christmas, when the city is all in the spirit. You'll thank me later :D",
+        0,
+        "2023-08-12",
+        2
+    ),
+    (
+        5,
+        "Weirdest experience",
+        "This could've only happened in Berlin. Went there with some friends for Eastern earlier this year. We were in the last stop of a freetour on the alternative Berlin in front of a squat house, our tour guide finishes her explanation, etc. and a French guy comes out from what looked like an abandoned house just in front to ask the whole tour group whether we could be part of their movie (as extras, of course). We had free beer in exchange of fake partying at a rave.",
+        0,
+        "2023-08-15",
+        3
+    ),
+    (
+        43,
+        "Some tips...",
+        "Do you like classical music, and want to see the Staatsoper in Vienna? Are you younger than 27 y/o? Then make yourself a favor and download the U27 app in your phone, this way you can enjoy a 200-euro seat for only 20€!!!!",
+        1,
+        "2023-08-15",
+        1
+    ),
+    (
+        27,
+        "Perfectly French",
+        "This city is tailored to flâneur people. Funny that this word only exists in French ;)",
+        0,
+        "2023-08-16",
+        3
+    ),
+    (
+        27,
+        "Super multicultural city",
+        "Doesn't matter the way you are, here you'll for sure find your spot",
+        1,
+        "2023-08-17",
+        1
+    ),
+    (
+        3,
+        "Stay in the city center",
+        "Please mind that the city center is the only kind of bright side of the city at night, and even with the street lights on you will probably a flashlight (so beware and save your phone's battery during the day!)",
+        1,
+        "2023-08-17",
+        2
+    ),
+    (
+        26,
+        "A mesmerizing midnight adventure in Oslo",
+        "Embracing the enchanting allure of Oslo's summer nights, I embarked on a midnight adventure that unveiled the city's captivating magic. Along the Oslofjord's tranquil shores, the surreal spectacle of the midnight sun painted a golden dreamscape, casting a mesmerizing glow upon modern architecture and natural splendor. A visit to the historic Akershus Fortress further immersed me in the past, guided by the ethereal play of light and shadow, while standing atop ancient ramparts, I felt a profound connection to Oslo's storied history. As the sun lingered above the horizon, I found myself lost in contemplation by the fjord's edge, a tranquil moment that encapsulated Oslo's timeless charm, leaving an indelible mark on my heart.",
+        0,
+        "2023-08-17",
+        2
+    );
