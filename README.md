@@ -1,6 +1,17 @@
 # my-express-app
 
-This MVP called Eurocapi projects what a traveling-through-Europe website could look like.
+This Eurocapi MVP projects what a traveling-through-Europe website could look like.
+
+## Built With
+
+* React
+* HTML
+* CSS
+* JavaScript
+* ReactRouter
+* MySQL
+* Node.js
+* Express.js
 
 ## Setup
 
