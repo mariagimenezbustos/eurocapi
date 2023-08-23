@@ -1,6 +1,17 @@
 # my-express-app
 
-This MVP called Eurocapi projects what a traveling-through-Europe website could look like.
+This Eurocapi MVP projects what a traveling-through-Europe website could look like.
+
+## Built With
+
+* React
+* HTML
+* CSS
+* JavaScript
+* ReactRouter
+* MySQL
+* Node.js
+* Express.js
 
 ## Setup
 
@@ -12,7 +23,6 @@ This MVP called Eurocapi projects what a traveling-through-Europe website could 
 ### Database Prep
 
 - Access the MySQL interface in your terminal by running `mysql -u root -p`
-- Create a new database called eurocapi: `create database eurocapi;`
 - Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
 
 ```bash
@@ -22,8 +32,7 @@ This MVP called Eurocapi projects what a traveling-through-Europe website could 
   DB_PASS=YOURPASSWORD
 ```
 
-- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create three tables in your database: "capital," "user," and "post".
-
+- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create three tables in your database: "capital," "user," and "post."
 - Make sure you understand how the tables are constructed. In your MySQL console, you can run `use eurocapi;` and then `describe TABLENAME;` to see the structure of each table.
 
 ### Development
