@@ -1,6 +1,6 @@
-DROP DATABASE if exists eurocapital;
-CREATE DATABASE eurocapital;
-USE eurocapital;
+DROP DATABASE if exists eurocapi;
+CREATE DATABASE eurocapi;
+USE eurocapi;
 
 DROP TABLE if exists post;
 DROP TABLE if exists user;
