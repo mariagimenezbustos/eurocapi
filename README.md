@@ -32,6 +32,7 @@ This Eurocapi MVP projects what a traveling-through-Europe website could look li
   DB_PASS=YOURPASSWORD
 ```
 
+- Send the following commands to MySQL: `CREATE DATABASE eurocapi;` and then `USE eurocapi;`
 - Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create three tables in your database: "capital," "user," and "post."
 - Make sure you understand how the tables are constructed. In your MySQL console, you can run `use eurocapi;` and then `describe TABLENAME;` to see the structure of each table.
 
