@@ -1,9 +1,9 @@
 import "./App.css"
-import Capitals from "./components/Capitals"
-import AddPost from "./components/AddPost"
-import Home from "./components/Home"
+import Capitals from "./pages/Capitals"
+import AddPost from "./pages/AddPost"
+import Home from "./pages/Home"
 import { Routes, Route, Link } from "react-router-dom"
-import Capital from "./components/Capital"
+import Capital from "./pages/Capital"
 
 function App() {
 

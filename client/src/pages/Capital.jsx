@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import "./Capital.css"
+import "./Capital.css";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
+const RAPID_KEY = import.meta.env.VITE_RAPID_KEY;
+const RAPID_HOST = import.meta.env.VITE_RAPID_HOST;
 
 export default function Capital() {
     const [capital, setCapital] = useState({
@@ -25,6 +27,7 @@ export default function Capital() {
     const [europeanCapitals, setEuropeanCapitals] = useState([]);
     const [comments, setComments] = useState([]);
     const [weather, setWeather] = useState(null);
+    const [prices, setPrices] = useState({});
 
     useEffect(() => {
         getCapital();
@@ -35,7 +38,10 @@ export default function Capital() {
     }, []);
 
     useEffect(() => {
-        if (capital.name) getWeather();
+        if (capital.name) {
+            getWeather();
+            getPrices();
+        }
     }, [capital.name]);
 
     const getEuropeanCapitals = async () => {
@@ -56,6 +62,27 @@ export default function Capital() {
         } catch (error) {
             console.log("Error fetching capital and comments", error)
         }
+    };
+
+    const getPrices = async () => {
+        const url = `https://cost-of-living-and-prices.p.rapidapi.com/prices?city_name=${capital.name}&country_name=${capital.country}`;
+        
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': RAPID_KEY,
+                'X-RapidAPI-Host': RAPID_HOST
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            console.log("result: ", result);
+            setPrices(result);
+        } catch (error) {
+            console.error(error);
+        };
     };
 
     const getWeather = async () => {
@@ -99,12 +126,12 @@ export default function Capital() {
                     </div>
 
                     <div>
-                        <h3 classname="description-title">{capital.description_title}</h3>
-                        <h4 classname="description-subtitle">{capital.description_subtitle_1}</h4>
+                        <h3 className="description-title">{capital.description_title}</h3>
+                        <h4 className="description-subtitle">{capital.description_subtitle_1}</h4>
                         <p className="description-text">{capital.description_text_1}</p>
-                        <h4 classname="description-subtitle">{capital.description_subtitle_2}</h4>
+                        <h4 className="description-subtitle">{capital.description_subtitle_2}</h4>
                         <p className="description-text">{capital.description_text_2}</p>
-                        <h4 classname="description-subtitle">{capital.description_subtitle_3}</h4>
+                        <h4 className="description-subtitle">{capital.description_subtitle_3}</h4>
                         <p className="description-text">{capital.description_text_3}</p>
                     </div>
 
@@ -117,6 +144,33 @@ export default function Capital() {
                             Considering the current uncertainties and potential challenges, we strongly advise travelers to exercise caution when planning a visit to Kiev. While the city's captivating history and cultural attractions are alluring, it's crucial to prioritize safety and well-being. Stay informed about travel advisories, health guidelines, and local restrictions that might affect your trip. Prioritize your health and stay connected with official government sources and local authorities for the latest updates. Your safety is paramount, and we hope for a time when exploring Kiev's wonders can be enjoyed without reservation. Until then, make informed decisions and ensure your travel plans align with prevailing conditions.
                         </p>
                     </div>}
+
+                    <div>
+                        {prices && (<div>
+                            <h3>Cost of living in {capital.name}</h3>
+                            <table className="prices-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Minimum Price</th>
+                                        <th>Maximum Price</th>
+                                        <th>Average</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {prices.prices.map((p) => (
+                                        <tr key={p.good_id}>
+                                            <td>{p.item_name}</td>
+                                            <td>{p.min} {p.currency_code}</td>
+                                            <td>{p.max} {p.currency_code}</td>
+                                            <td>{p.avg} {p.currency_code}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>)}
+                    </div>
                 </div>   
 
                 {comments.length ? <div className="comments">
