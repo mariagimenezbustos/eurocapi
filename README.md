@@ -22,7 +22,7 @@ This Eurocapi MVP projects what a traveling-through-Europe website could look li
 
 ### Database Prep
 
-- Access the MySQL interface in your terminal by running `mysql -u root -p`
+- Access the MySQL interface in your terminal by running `mysql -u root -p`.
 - Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
 
 ```bash
@@ -32,12 +32,13 @@ This Eurocapi MVP projects what a traveling-through-Europe website could look li
   DB_PASS=YOURPASSWORD
 ```
 
+- Run the following commands to your MySQL console: `CREATE DATABASE eurocapi;` and then `USE eurocapi;`
 - Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create three tables in your database: "capital," "user," and "post."
-- Make sure you understand how the tables are constructed. In your MySQL console, you can run `use eurocapi;` and then `describe TABLENAME;` to see the structure of each table.
+- Make sure you understand how the tables are constructed. In your MySQL console, you can run `DESCRIBE tablename;` to see the structure of each table. Please mind that "tablename" in `DESCRIBE tablename` needs to be replaced by the name of the table that you want to describe.
 
 ### Development
 
-- Run `npm start` in project directory to start the Express server on port 4000
+- Run `npm start` in project directory to start the Express server on port 4000.
 - In another terminal, do `cd client` and run `npm run dev` to start the client in development mode with hot reloading in port 5173.
 
 ## Database Structure
