@@ -209,6 +209,7 @@ h3, h4 {
 .prices-table {
     border-collapse: collapse;
     box-shadow: 0px 10px 8px #4a4e69;
+    margin-bottom: 30px;
 }
 
 .prices-table th, td {
@@ -216,4 +217,14 @@ h3, h4 {
     border-radius: 1rem;
     padding: 5px;
     text-align: center;
+}
+
+.open-close {
+    text-align: center;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: #9a8c98;
+    text-decoration: none;
+    color: white;
 }

@@ -28,6 +28,7 @@ export default function Capital() {
     const [comments, setComments] = useState([]);
     const [weather, setWeather] = useState(null);
     const [prices, setPrices] = useState({});
+    const [pricesOpen, setPricesOpen] = useState(false);
 
     useEffect(() => {
         getCapital();
@@ -98,6 +99,14 @@ export default function Capital() {
         }
     };
 
+    const openPrices = () => {
+        setPricesOpen(true);
+    };
+
+    const closePrices = () => {
+        setPricesOpen(false);
+    };
+
     return (
         <div id="Capital">
             <div className="capital-div">
@@ -148,27 +157,34 @@ export default function Capital() {
                     <div>
                         {prices && (<div>
                             <h3>Cost of living in {capital.name}</h3>
-                            <table className="prices-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Minimum Price</th>
-                                        <th>Maximum Price</th>
-                                        <th>Average</th>
-                                    </tr>
-                                </thead>
 
-                                <tbody>
-                                    {prices.prices.map((p) => (
-                                        <tr key={p.good_id}>
-                                            <td>{p.item_name}</td>
-                                            <td>{p.min} {p.currency_code}</td>
-                                            <td>{p.max} {p.currency_code}</td>
-                                            <td>{p.avg} {p.currency_code}</td>
+                            {pricesOpen ? (
+                            <>
+                                <table className="prices-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Minimum Price</th>
+                                            <th>Maximum Price</th>
+                                            <th>Average</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+
+                                    <tbody>
+                                        {prices.prices.map((p) => (
+                                            <tr key={p.good_id}>
+                                                <td>{p.item_name}</td>
+                                                <td>{p.min} {p.currency_code}</td>
+                                                <td>{p.max} {p.currency_code}</td>
+                                                <td>{p.avg} {p.currency_code}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+
+                                <button className="open-close" onClick={() => closePrices()}>Hide</button>
+                            </>)
+                            : <button className="open-close" onClick={() => openPrices()}>See</button>}
                         </div>)}
                     </div>
                 </div>   
