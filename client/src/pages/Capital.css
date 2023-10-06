@@ -219,7 +219,7 @@ h3, h4 {
     text-align: center;
 }
 
-.open-close {
+.open-close, .hotel-search {
     text-align: center;
     width: fit-content;
     border-radius: 5px;
@@ -227,4 +227,32 @@ h3, h4 {
     background-color: #9a8c98;
     text-decoration: none;
     color: white;
+}
+
+.hotel-booking {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border: 1px solid #22223b;
+    border-radius: 1rem;
+    padding: 5px;
+    box-shadow: 0px 10px 8px #4a4e69;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.hotel-img {
+    margin-left: 30px;
+    min-width: 400%;
+    min-height: 400%;
+    object-fit: fill;
+}
+
+.hotel-name {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.hotel-booking p {
+    margin: 10px;
 }

@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./Capital.css";
+import HotelDatePicker from "hotel-datepicker";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const WEATHER_KEY = import.meta.env.VITE_WEATHER_KEY;
 const RAPID_KEY = import.meta.env.VITE_RAPID_KEY;
-const RAPID_HOST = import.meta.env.VITE_RAPID_HOST;
+const PRICES_HOST = import.meta.env.VITE_PRICES_HOST;
+const HOTELS_HOST = import.meta.env.VITE_HOTELS_HOST;
 
 export default function Capital() {
     const [capital, setCapital] = useState({
@@ -29,6 +31,17 @@ export default function Capital() {
     const [weather, setWeather] = useState(null);
     const [prices, setPrices] = useState({});
     const [pricesOpen, setPricesOpen] = useState(false);
+    const [location, setLocation] = useState({});
+    const [hotels, setHotels] = useState({});
+    const [hotelsOpen, setHotelsOpen] = useState(false);
+    const [hotelForm, setHotelForm] = useState(false);
+    const [arrivalDate, setArrivalDate] = useState("");
+    const [departureDate, setDepartureDate] = useState("");
+    const [numGuests, setNumGuests] = useState(1);
+    const [numRooms, setNumRooms] = useState(1);
+
+    const inputFieldRef = useRef(null);
+    const datePickerRef = useRef(null);
 
     useEffect(() => {
         getCapital();
@@ -42,8 +55,79 @@ export default function Capital() {
         if (capital.name) {
             getWeather();
             getPrices();
+            getLocation();
         }
     }, [capital.name]);
+
+    useEffect(() => {
+        if (inputFieldRef.current) {
+            datePickerRef.current = new HotelDatePicker(inputFieldRef.current, {
+                // date format
+                format: "YYYY-MM-DD",
+                infoFormat: "YYYY-MM-DD",
+                ariaDayFormat: "dddd, MMMM DD, YYYY",
+                // separator displayed between date strings
+                separator: " - ",
+                startOfWeek: "monday",
+                // start/end dates
+                startDate: arrivalDate,
+                endDate: departureDate,
+                // onSelectRange: (startDate, endDate) => {
+                //     console.log("Selected Start Date:", startDate);
+                //     console.log("Selected End Date:",endDate);
+                // },
+                // min/max nights required to select a range of dates
+                minNights: 1,
+                maxNights: 0,
+                // the second date must be after the first date
+                selectForward: true,
+                // disabled dates
+                disabledDates: [],
+                noCheckInDates: [],
+                noCheckOutDates: [],
+                disabledDaysOfWeek: [],
+                noCheckInDaysOfWeek: [],
+                noCheckOutDaysOfWeek: [],
+                // allows the checkout on a disabled date or not
+                enableCheckout: false,
+                // determines whether to close the date range picker on click outside
+                preventContainerClose: false,
+                // container to hold the date range picker
+                container: "",
+                // animation speed
+                animationSpeed: ".5s",
+                // show a tooltip when hovering a date
+                // or:
+                // hoveringTooltip: function(nights, startTime, hoverTime) {
+                //   return nights;
+                // }
+                hoveringTooltip: true, 
+                // auto close the date range picker when a date range is selected 
+                autoClose: true,
+                // show/hide the toolbar
+                showTopbar: true,
+                // or "bottom"
+                topbarPosition: "top",
+                // move both months when clicking on the next/prev month button
+                moveBothMonths: false,
+                // enable inline mode
+                inline: false,
+                // show the Clear button
+                clearButton: false,
+                // show the Submit button
+                submitButton: false,
+                // the name of the Submit button
+                submitButtonName: '',
+                // trigger a custom function to show extra text in day cells
+                // parameters: date, attributes
+                extraDayText: false,
+                // callback functions
+                onDayClick: false,
+                onOpenDatepicker: false,
+                onSelectRange: false,
+            });
+        }
+    }, [inputFieldRef]);
 
     const getEuropeanCapitals = async () => {
         const response = await fetch("/api/capitals");
@@ -65,30 +149,9 @@ export default function Capital() {
         }
     };
 
-    const getPrices = async () => {
-        const url = `https://cost-of-living-and-prices.p.rapidapi.com/prices?city_name=${capital.name}&country_name=${capital.country}`;
-        
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': RAPID_KEY,
-                'X-RapidAPI-Host': RAPID_HOST
-            }
-        };
-
-        try {
-            const response = await fetch(url, options);
-            const result = await response.json();
-            console.log("result: ", result);
-            setPrices(result);
-        } catch (error) {
-            console.error(error);
-        };
-    };
-
     const getWeather = async () => {
         try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${capital.name}&appid=${API_KEY}&units=metric`)
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${capital.name}&appid=${WEATHER_KEY}&units=metric`)
             const data = await response.json();
 
             if(response.ok) setWeather(data.main.temp);
@@ -99,6 +162,77 @@ export default function Capital() {
         }
     };
 
+    const getPrices = async () => {
+        const url = `https://cost-of-living-and-prices.p.rapidapi.com/prices?city_name=${capital.name}&country_name=${capital.country}`;
+        
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': RAPID_KEY,
+                'X-RapidAPI-Host': PRICES_HOST
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            setPrices(result);
+
+        } catch (error) {
+            console.log(error.message);
+        };
+    };
+
+    const getLocation = async () => {
+        const url = `https://apidojo-booking-v1.p.rapidapi.com/locations/auto-complete?text=${capital.name}&languagecode=en-us`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': RAPID_KEY,
+                'X-RapidAPI-Host': HOTELS_HOST
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            setLocation(result);
+            console.log(url);
+            console.log(result);
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const getHotels = async () => {
+        const url = `https://apidojo-booking-v1.p.rapidapi.com/properties/list?offset=0&arrival_date=${arrivalDate}&departure_date=${departureDate}&guest_qty=${numGuests}&dest_ids=${location[0]["dest_id"]}&room_qty=${numRooms}&search_type=${location[0]["dest_type"]}&search_id=none&price_filter_currencycode=EUR&languagecode=en-us`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': RAPID_KEY,
+                'X-RapidAPI-Host': HOTELS_HOST
+            }
+        };
+        
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            setHotels(result);
+            console.log(url);
+            console.log(result);
+
+        } catch (error) {
+            console.log(error.message);
+        };
+    };
+
+    const sendForm = async (e) => {
+        e.preventDefault();
+        getHotels();
+        setHotelForm(true);
+    };
+
     const openPrices = () => {
         setPricesOpen(true);
     };
@@ -106,6 +240,34 @@ export default function Capital() {
     const closePrices = () => {
         setPricesOpen(false);
     };
+
+    const openHotels = () => {
+        setHotelsOpen(true);
+    };
+
+    const closeHotels = () => {
+        setHotelsOpen(false);
+    };
+    
+    const handleGuestsChange = (e) => {
+        const value = parseInt(e.target.value);
+        setNumGuests(value);
+    };
+
+    const handleRoomsChange = (e) => {
+        const value = parseInt(e.target.value);
+        setNumRooms(value);
+    };
+
+    const handleArrivalChange = (e) => {
+        const value = e.target.value;
+        setArrivalDate(value);
+    };
+
+    const handleDepartureChange = (e) => {
+        const value = e.target.value;
+        setDepartureDate(value);
+    }
 
     return (
         <div id="Capital">
@@ -156,10 +318,10 @@ export default function Capital() {
 
                     <div>
                         {prices && (<div>
-                            <h3>Cost of living in {capital.name}</h3>
-
                             {pricesOpen ? (
                             <>
+                                <h3>Cost of living in {capital.name}</h3>
+
                                 <table className="prices-table">
                                     <thead>
                                         <tr>
@@ -184,10 +346,86 @@ export default function Capital() {
 
                                 <button className="open-close" onClick={() => closePrices()}>Hide</button>
                             </>)
-                            : <button className="open-close" onClick={() => openPrices()}>See</button>}
+                            : <button className="open-close" onClick={() => openPrices()}>See Cost of Living</button>}
                         </div>)}
                     </div>
-                </div>   
+
+                    <div>
+                        {hotels && hotelsOpen ? (
+                            <>
+                                <h3>Look for hotels in {capital.name}</h3>
+
+                                <form onSubmit={sendForm}>
+                                    <label htmlFor="numGuests">
+                                        Guests:
+                                        <input type="number"
+                                        id="numGuests"
+                                        name="numGuests"
+                                        value={numGuests}
+                                        onChange={handleGuestsChange}
+                                        min="1"
+                                        />
+                                    </label>
+
+                                    <label htmlFor="numRooms">
+                                        Rooms:
+                                        <input type="number"
+                                        id="numRooms"
+                                        name="numRooms"
+                                        value={numRooms}
+                                        onChange={handleRoomsChange}
+                                        min="1"
+                                        />
+                                    </label>
+
+                                    <label htmlFor="arrivalDate">
+                                        Arrival Date:
+                                        <input id="datePickerInput"
+                                        type="date"
+                                        value={arrivalDate}
+                                        onChange={handleArrivalChange}
+                                        />
+                                    </label>
+
+                                    <label htmlFor="departureDate">
+                                        Departure Date:
+                                        <input id="datePickerInput"
+                                        type="date"
+                                        value={departureDate}
+                                        onChange={handleDepartureChange}
+                                        />
+                                    </label>
+
+                                    <button className="hotel-search">Search</button>
+                                </form>
+
+                                {hotelForm && hotels.result && hotels.result.map((h) => (
+                                    <div key={h.id} className="hotel-booking">
+                                        <div>
+                                            <h4 className="hotel-name">{h.hotel_name}</h4>
+                                            <p><b>Address:</b> {h.address}, {capital.name}, {capital.country}</p>
+                                            <p><b>Review Score:</b> {h.review_score / 2}/5</p>
+                                            <p><b>All Inclusive Price:</b> {h.price_breakdown.all_inclusive_price} {h.price_breakdown.currency}</p>
+                                        </div>
+                                        <div>
+                                            <img src={h.main_photo_url}
+                                            alt={h.hotel_name}
+                                            className="hotel-img"
+                                            style={{width: "100px", height: "100px"}}
+                                            />
+                                            <br/>
+                                            <Link to={h.url}>Book your stay!</Link>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                <button className="open-close" onClick={() => closeHotels()}>Hide</button>
+                            </>
+                            ) : (
+                            <button className="open-close" onClick={() => openHotels()}>See Hotels</button>
+                        )}
+                    </div>
+                </div>
 
                 {comments.length ? <div className="comments">
                     <h4>Experiences from fellow Eurocapis</h4>
