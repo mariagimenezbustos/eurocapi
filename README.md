@@ -54,8 +54,8 @@ This Eurocapi MVP projects what a traveling-through-Europe website could look li
 
 - You can find your API keys in the following links:
 
-* For the `VITE_WEATHER_KEY`, please visit https://openweathermap.org/api, log in or sign up and generate an API key.
-* For the `VITE_RAPID_KEY`, please create an account (if you don't have one already) on RapidAPI, and subscribe yourself to this Booking API https://rapidapi.com/apidojo/api/booking and to this Costs-of-Living-and-Prices API https://rapidapi.com/traveltables/api/cost-of-living-and-prices. Both of these APIs have a free plan (the Basic subscription), just make sure you stick to the request limits. You can find your API key in the "Endpoints" window of either API under the name "X-RapidAPI-key".
+  * For the `VITE_WEATHER_KEY`, please visit https://openweathermap.org/api, log in or sign up and generate an API key.
+  * For the `VITE_RAPID_KEY`, please create an account (if you don't have one already) on RapidAPI, and subscribe yourself to this Booking API https://rapidapi.com/apidojo/api/booking and to this Costs-of-Living-and-Prices API https://rapidapi.com/traveltables/api/cost-of-living-and-prices. Both of these APIs have a free plan (the Basic subscription), just make sure you stick to the request limits. You can find your API key in the "Endpoints" window of either API under the name "X-RapidAPI-key".
 
 ## Database Structure
 
