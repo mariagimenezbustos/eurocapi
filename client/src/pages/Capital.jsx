@@ -336,9 +336,9 @@ export default function Capital() {
                                         {prices.prices.map((p) => (
                                             <tr key={p.good_id}>
                                                 <td>{p.item_name}</td>
-                                                <td>{p.min} {p.currency_code}</td>
-                                                <td>{p.max} {p.currency_code}</td>
-                                                <td>{p.avg} {p.currency_code}</td>
+                                                <td>{p.min.toFixed(2)} {p.currency_code}</td>
+                                                <td>{p.max.toFixed(2)} {p.currency_code}</td>
+                                                <td>{p.avg.toFixed(2)} {p.currency_code}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -346,7 +346,7 @@ export default function Capital() {
 
                                 <button className="open-close" onClick={() => closePrices()}>Hide</button>
                             </>)
-                            : <button className="open-close" onClick={() => openPrices()}>See Cost of Living</button>}
+                            : <button className="open-close" onClick={() => openPrices()}>Show Costs of Living</button>}
                         </div>)}
                     </div>
 
@@ -355,7 +355,7 @@ export default function Capital() {
                             <>
                                 <h3>Look for hotels in {capital.name}</h3>
 
-                                <form onSubmit={sendForm}>
+                                <form className="hotel-form" onSubmit={sendForm}>
                                     <label htmlFor="numGuests">
                                         Guests:
                                         <input type="number"
@@ -366,6 +366,8 @@ export default function Capital() {
                                         min="1"
                                         />
                                     </label>
+
+                                    <br/>
 
                                     <label htmlFor="numRooms">
                                         Rooms:
@@ -378,6 +380,8 @@ export default function Capital() {
                                         />
                                     </label>
 
+                                    <br/>
+
                                     <label htmlFor="arrivalDate">
                                         Arrival Date:
                                         <input id="datePickerInput"
@@ -386,6 +390,8 @@ export default function Capital() {
                                         onChange={handleArrivalChange}
                                         />
                                     </label>
+
+                                    <br/>
 
                                     <label htmlFor="departureDate">
                                         Departure Date:
@@ -396,8 +402,12 @@ export default function Capital() {
                                         />
                                     </label>
 
+                                    <br/>
+
                                     <button className="hotel-search">Search</button>
                                 </form>
+
+                                {hotelForm && !hotels.result && <p>No hotels found for your search. Please try again.</p>}
 
                                 {hotelForm && hotels.result && hotels.result.map((h) => (
                                     <div key={h.id} className="hotel-booking">
@@ -422,7 +432,7 @@ export default function Capital() {
                                 <button className="open-close" onClick={() => closeHotels()}>Hide</button>
                             </>
                             ) : (
-                            <button className="open-close" onClick={() => openHotels()}>See Hotels</button>
+                            <button className="open-close" onClick={() => openHotels()}>Show Hotels</button>
                         )}
                     </div>
                 </div>

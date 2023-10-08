@@ -227,6 +227,7 @@ h3, h4 {
     background-color: #9a8c98;
     text-decoration: none;
     color: white;
+    margin: 10px auto;
 }
 
 .hotel-booking {
@@ -255,4 +256,12 @@ h3, h4 {
 
 .hotel-booking p {
     margin: 10px;
+}
+
+.hotel-form input {
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 1px solid #22223b;
+    border-radius: 0.5rem;
+    padding: 5px;
 }
