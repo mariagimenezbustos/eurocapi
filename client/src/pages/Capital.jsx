@@ -39,6 +39,8 @@ export default function Capital() {
     const [departureDate, setDepartureDate] = useState("");
     const [numGuests, setNumGuests] = useState(1);
     const [numRooms, setNumRooms] = useState(1);
+    const [sortBy, setSortBy] = useState(null);
+    const [sortedHotels, setSortedHotels] = useState([]);
 
     const inputFieldRef = useRef(null);
     const datePickerRef = useRef(null);
@@ -56,6 +58,8 @@ export default function Capital() {
             getWeather();
             getPrices();
             getLocation();
+            closeHotels();
+            closePrices();
         }
     }, [capital.name]);
 
@@ -269,6 +273,23 @@ export default function Capital() {
         setDepartureDate(value);
     }
 
+    const handleSort = (criteria) => {
+        if (criteria === "price") {   
+            const sorted = hotels.result.slice().sort((a, b) =>
+                a.price_breakdown.all_inclusive_price - b.price_breakdown.all_inclusive_price
+            );
+            setHotels({ ...hotels, result: sorted });
+
+        } else if (criteria === "review") {
+            const sorted = hotels.result.slice().sort((a, b) =>
+                b.review_score - a.review_score
+            );
+            setHotels({ ...hotels, result: sorted });
+        }
+
+        setSortBy(criteria);
+    };
+
     return (
         <div id="Capital">
             <div className="capital-div">
@@ -290,7 +311,7 @@ export default function Capital() {
                     </div>
 
                     <div className="basics-grid">
-                        <p className="basics">Population:<br/>{capital.population} inhabitants</p>
+                        <p className="basics">Population:<br/>{capital.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} inhabitants</p>
                         <p className="basics">Official language(s):<br/>{capital.language}</p>
                         <p className="basics">Currency:<br/>{capital.currency}</p>
                         {weather && <p className="basics">Current temperature:<br/>{weather} °C</p>}
@@ -316,11 +337,13 @@ export default function Capital() {
                         </p>
                     </div>}
 
-                    <div>
-                        {prices && (<div>
+                    <div className="extra-info">
+                        {prices.prices ? (<div>
                             {pricesOpen ? (
                             <>
-                                <h3>Cost of living in {capital.name}</h3>
+                                <button className="open-close" onClick={() => closePrices()}>Hide Costs of Living</button>
+
+                                <h3>Costs of living in {capital.name}</h3>
 
                                 <table className="prices-table">
                                     <thead>
@@ -336,9 +359,9 @@ export default function Capital() {
                                         {prices.prices.map((p) => (
                                             <tr key={p.good_id}>
                                                 <td>{p.item_name}</td>
-                                                <td>{p.min.toFixed(2)} {p.currency_code}</td>
-                                                <td>{p.max.toFixed(2)} {p.currency_code}</td>
-                                                <td>{p.avg.toFixed(2)} {p.currency_code}</td>
+                                                <td>{p.min.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {p.currency_code}</td>
+                                                <td>{p.max.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {p.currency_code}</td>
+                                                <td className="avg-prices">{p.avg.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {p.currency_code}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -347,92 +370,142 @@ export default function Capital() {
                                 <button className="open-close" onClick={() => closePrices()}>Hide</button>
                             </>)
                             : <button className="open-close" onClick={() => openPrices()}>Show Costs of Living</button>}
-                        </div>)}
+                        </div>
+                        ): (
+                            <p>Costs of living in {capital.name} are not available at the moment.</p>
+                        )}
                     </div>
 
-                    <div>
+                    <div className="extra-info">
                         {hotels && hotelsOpen ? (
-                            <>
-                                <h3>Look for hotels in {capital.name}</h3>
+                        <>
+                            <button className="open-close" onClick={() => closeHotels()}>Hide Hotels</button>
 
-                                <form className="hotel-form" onSubmit={sendForm}>
-                                    <label htmlFor="numGuests">
-                                        Guests:
-                                        <input type="number"
-                                        id="numGuests"
-                                        name="numGuests"
-                                        value={numGuests}
-                                        onChange={handleGuestsChange}
-                                        min="1"
+                            <h3>Look for hotels in {capital.name}</h3>
+
+                            <form className="hotel-form" onSubmit={sendForm}>
+                                <label htmlFor="numGuests">
+                                    Guests:
+                                    <input type="number"
+                                    id="numGuests"
+                                    name="numGuests"
+                                    value={numGuests}
+                                    onChange={handleGuestsChange}
+                                    min="1"
+                                    />
+                                </label>
+
+                                <br/>
+
+                                <label htmlFor="numRooms">
+                                    Rooms:
+                                    <input type="number"
+                                    id="numRooms"
+                                    name="numRooms"
+                                    value={numRooms}
+                                    onChange={handleRoomsChange}
+                                    min="1"
+                                    />
+                                </label>
+
+                                <br/>
+
+                                <label htmlFor="arrivalDate">
+                                    Arrival Date:
+                                    <input id="datePickerInput"
+                                    type="date"
+                                    value={arrivalDate}
+                                    onChange={handleArrivalChange}
+                                    />
+                                </label>
+
+                                <br/>
+
+                                <label htmlFor="departureDate">
+                                    Departure Date:
+                                    <input id="datePickerInput"
+                                    type="date"
+                                    value={departureDate}
+                                    onChange={handleDepartureChange}
+                                    />
+                                </label>
+
+                                <br/>
+
+                                <button className="hotel-search">Search</button>
+                            </form>
+
+                            {hotelForm && !hotels.result && <p>Loading hotels...</p>}
+
+                            {hotelForm && hotels.result && (
+                                <div className="order-by">
+                                    <label htmlFor="sortDropdown">Order By:</label>
+                                    <select
+                                        id="sortDropdown"
+                                        value={sortBy || ""}
+                                        onChange={(e) => handleSort(e.target.value)}
+                                        className="order-by-btn"
+                                    >
+                                        <option value="">Select an option</option>
+                                        <option value="price">Price</option>
+                                        <option value="review">Review</option>
+                                    </select>
+                                </div>
+                            )}
+
+                            {hotelForm && hotels.result && hotels.result.map((h) => (
+                                <div key={h.id} className="hotel-booking">
+
+                                    <div>
+                                        <h4 className="hotel-name">{h.hotel_name}</h4>
+                                        <p><b>Address:</b> {h.address}, {capital.name}, {capital.country}</p>
+                                        <p><b>Review Score:</b> {h.review_score / 2}/5</p>
+                                        <p><b>All Inclusive Price:</b> {h.price_breakdown.all_inclusive_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {h.price_breakdown.currency}</p>
+                                    </div>
+
+                                    <div>
+                                        <img src={h.main_photo_url}
+                                        alt={h.hotel_name}
+                                        className="hotel-img"
                                         />
-                                    </label>
 
-                                    <br/>
-
-                                    <label htmlFor="numRooms">
-                                        Rooms:
-                                        <input type="number"
-                                        id="numRooms"
-                                        name="numRooms"
-                                        value={numRooms}
-                                        onChange={handleRoomsChange}
-                                        min="1"
-                                        />
-                                    </label>
-
-                                    <br/>
-
-                                    <label htmlFor="arrivalDate">
-                                        Arrival Date:
-                                        <input id="datePickerInput"
-                                        type="date"
-                                        value={arrivalDate}
-                                        onChange={handleArrivalChange}
-                                        />
-                                    </label>
-
-                                    <br/>
-
-                                    <label htmlFor="departureDate">
-                                        Departure Date:
-                                        <input id="datePickerInput"
-                                        type="date"
-                                        value={departureDate}
-                                        onChange={handleDepartureChange}
-                                        />
-                                    </label>
-
-                                    <br/>
-
-                                    <button className="hotel-search">Search</button>
-                                </form>
-
-                                {hotelForm && !hotels.result && <p>No hotels found for your search. Please try again.</p>}
-
-                                {hotelForm && hotels.result && hotels.result.map((h) => (
-                                    <div key={h.id} className="hotel-booking">
-                                        <div>
-                                            <h4 className="hotel-name">{h.hotel_name}</h4>
-                                            <p><b>Address:</b> {h.address}, {capital.name}, {capital.country}</p>
-                                            <p><b>Review Score:</b> {h.review_score / 2}/5</p>
-                                            <p><b>All Inclusive Price:</b> {h.price_breakdown.all_inclusive_price} {h.price_breakdown.currency}</p>
-                                        </div>
-                                        <div>
-                                            <img src={h.main_photo_url}
-                                            alt={h.hotel_name}
-                                            className="hotel-img"
-                                            style={{width: "100px", height: "100px"}}
-                                            />
-                                            <br/>
-                                            <Link to={h.url}>Book your stay!</Link>
+                                        <br/>
+                                        
+                                        <div id="button-container">
+                                            <Link className="book-stay-btn" to={h.url}>Book your stay!</Link>
                                         </div>
                                     </div>
-                                ))}
+                                </div>
+                            ))}
 
-                                <button className="open-close" onClick={() => closeHotels()}>Hide</button>
-                            </>
-                            ) : (
-                            <button className="open-close" onClick={() => openHotels()}>Show Hotels</button>
+                            {hotelForm && sortBy && sortedHotels.map((h) => (
+                                <div key={h.id} className="hotel-booking">
+                                    <div>
+                                        <h4 className="hotel-name">{h.hotel_name}</h4>
+                                        <p><b>Address:</b> {h.address}, {capital.name}, {capital.country}</p>
+                                        <p><b>Review Score:</b> {h.review_score / 2}/5</p>
+                                        <p><b>All Inclusive Price:</b> {h.price_breakdown.all_inclusive_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {h.price_breakdown.currency}</p>
+                                    </div>
+
+                                    <div>
+                                        <img src={h.main_photo_url}
+                                        alt={h.hotel_name}
+                                        className="hotel-img"
+                                        />
+
+                                        <br/>
+
+                                        <div id="button-container">
+                                            <Link className="book-stay-btn" to={h.url}>Book your stay!</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                            <button className="open-close" onClick={() => closeHotels()}>Hide</button>
+                        </>
+                        ) : (
+                        <button className="open-close" onClick={() => openHotels()}>Show Hotels</button>
                         )}
                     </div>
                 </div>

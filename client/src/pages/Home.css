@@ -27,3 +27,18 @@ h3 {
     font-size: 30px;
     text-align: center;
 }
+
+.link{
+    margin: 20px;
+    text-align: center;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: #9a8c98;
+    text-decoration: none;
+    color: white;
+}
+
+.link:visited{
+    color: white;
+}
