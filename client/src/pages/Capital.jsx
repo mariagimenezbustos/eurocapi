@@ -76,10 +76,6 @@ export default function Capital() {
                 // start/end dates
                 startDate: arrivalDate,
                 endDate: departureDate,
-                // onSelectRange: (startDate, endDate) => {
-                //     console.log("Selected Start Date:", startDate);
-                //     console.log("Selected End Date:",endDate);
-                // },
                 // min/max nights required to select a range of dates
                 minNights: 1,
                 maxNights: 0,
