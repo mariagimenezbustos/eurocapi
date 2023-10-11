@@ -47,6 +47,7 @@ function Capitals() {
                     <label>
                     <input
                         className="search-bar"
+                        id="search-bar"
                         placeholder="Search by capital, country, language or currency"
                         onChange={(e) => setSearchTerm(e.target.value)}
                         value={searchTerm}>
@@ -58,7 +59,7 @@ function Capitals() {
 
                 <div className="card-grid">
                     {capitals.length !== 0 && capitals.map((capital) => (
-                        <div key={capital.id} className="card">
+                        <div key={capital.id} id={capital.id} className="card">
                             <img src={capital.url} alt="Image" className="card-img" />
                             <h2 className="card-title">{capital.name}</h2>
                             <h3 className="card-description">{capital.country}</h3>
