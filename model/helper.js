@@ -1,5 +1,6 @@
 require("dotenv").config();
 const mysql = require("mysql");
+// const mysql = require("mysql2/promise");
 
 module.exports = async function db(query) {
   const results = {
@@ -18,7 +19,7 @@ module.exports = async function db(query) {
       password: DB_PASS,
       database: DB_NAME || "eurocapi",
       multipleStatements: true,
-      // ssl: {},
+      ssl: {},
     });
 
     con.connect(function (err) {
