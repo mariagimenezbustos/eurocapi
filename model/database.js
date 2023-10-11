@@ -9,29 +9,14 @@ const DB_USER = process.env.DB_USER;
 const DB_PASS = process.env.DB_PASS;
 const DB_NAME = process.env.DB_NAME;
 
-const con = mysql.createConnection({
-  host: DB_HOST || "127.0.0.1",
-  user: DB_USER || "root",
-  password: DB_PASS,
-  database: DB_NAME || "eurocapi",
-  multipleStatements: true,
-  // ssl: {},
-});
-
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-
-  let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table creation was successful!");
-
-    console.log("Closing...");
-  });
-
-  con.end();
-});
+// const con = mysql.createConnection({
+//   host: DB_HOST || "127.0.0.1",
+//   user: DB_USER || "root",
+//   password: DB_PASS,
+//   database: DB_NAME || "eurocapi",
+//   multipleStatements: true,
+//   // ssl: {},
+// });
 
 // const mysql = require("mysql2/promise");
 
@@ -76,11 +61,28 @@ con.connect(function (err) {
   );
   console.log(`There is now ${usersCount[0].cpt} in table "users"`);
 
-  // Close the connection to MariaDB
+  // Close the connection to MySQL
   await db.end();
 })().catch((error) => {
   console.error("");
   console.error("🐞 An error occurred!");
   console.error(error);
   process.exit(1);
+});
+
+// from before
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
+
+  let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation was successful!");
+
+    console.log("Closing...");
+  });
+
+  con.end();
 });
