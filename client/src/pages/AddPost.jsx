@@ -103,12 +103,13 @@ function AddPost() {
                             value={project.capital_id}
                             onChange={handleInputChange}
                             >
-                                <option>Choose</option>
+                                <option id="choose_id">Choose</option>
                                 {europeanCapitals.map((c) => (
-                                    <option
-                                    key={c.id}
-                                    value={c.id} 
-                                    >{c.name}
+                                <option
+                                key={c.id}
+                                value={c.id}
+                                id={c.id} 
+                                >{c.name}
                                 </option>
                             ))}
                         </select>

@@ -1,5 +1,7 @@
 require("dotenv").config();
-const mysql = require("mysql");
+// const mysql = require("mysql");
+const mysql = require("mysql2/promise");
+
 const fs = require("fs");
 
 const DB_HOST = process.env.DB_HOST;
@@ -12,15 +14,16 @@ const con = mysql.createConnection({
   user: DB_USER || "root",
   password: DB_PASS,
   database: DB_NAME || "eurocapi",
-  multipleStatements: true
+  multipleStatements: true,
+  // ssl: {},
 });
 
-con.connect(function(err) {
+con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
 
   let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
-  con.query(sql, function(err, result) {
+  con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table creation was successful!");
 
@@ -28,4 +31,56 @@ con.connect(function(err) {
   });
 
   con.end();
+});
+
+// const mysql = require("mysql2/promise");
+
+(async () => {
+  const db = await mysql.createConnection({
+    host: process.env.STACKHERO_MYSQL_HOST,
+    user: "root",
+    password: process.env.STACKHERO_MYSQL_ROOT_PASSWORD,
+  });
+
+  // Create database stackherotest if not exists yet
+  await db.query("CREATE DATABASE IF NOT EXISTS stackherotest");
+
+  // Create table users if not exists yet
+  await db.query(
+    "CREATE TABLE IF NOT EXISTS `stackherotest`.`users` " +
+      "(" +
+      "`userId` INT UNSIGNED NOT NULL," +
+      "`name` VARCHAR(128) NOT NULL," +
+      "`address` TEXT NOT NULL," +
+      "`email` VARCHAR(265) NOT NULL" +
+      ") " +
+      "ENGINE = InnoDB;"
+  );
+
+  // Insert a fake user
+  await db.query(
+    "INSERT INTO `stackherotest`.`users` (`userId`, `name`, `address`, `email`) VALUES ?",
+    [
+      [
+        Math.round(Math.random() * 100000), // Generate a fake userId
+        "User name", // column 'name'
+        "User address", // column 'address'
+        "user@email.com", // column 'email'
+      ],
+    ]
+  );
+
+  // Count number of rows in table users
+  const [usersCount] = await db.query(
+    "SELECT COUNT(*) AS `cpt` FROM `stackherotest`.`users`"
+  );
+  console.log(`There is now ${usersCount[0].cpt} in table "users"`);
+
+  // Close the connection to MariaDB
+  await db.end();
+})().catch((error) => {
+  console.error("");
+  console.error("🐞 An error occurred!");
+  console.error(error);
+  process.exit(1);
 });
