@@ -12,11 +12,14 @@ module.exports = async function db(query) {
     const DB_USER = process.env.DB_USER;
     const DB_PASS = process.env.DB_PASS;
     const DB_NAME = process.env.DB_NAME;
+    const STACKHERO_MYSQL_ROOT_PASSWORD =
+      process.env.STACKHERO_MYSQL_ROOT_PASSWORD;
+    const STACKHERO_MYSQL_HOST = process.env.STACKHERO_MYSQL_HOST;
 
     const con = mysql.createConnection({
-      host: DB_HOST || "127.0.0.1",
+      host: STACKHERO_MYSQL_HOST, // DB_HOST || "127.0.0.1",
       user: DB_USER || "root",
-      password: DB_PASS,
+      password: STACKHERO_MYSQL_ROOT_PASSWORD, // DB_PASS,
       database: DB_NAME || "eurocapi",
       multipleStatements: true,
       ssl: {},
