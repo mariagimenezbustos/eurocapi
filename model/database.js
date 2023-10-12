@@ -20,6 +20,21 @@ const con = mysql.createConnection({
   ssl: {},
 });
 
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
+
+  let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation was successful!");
+
+    console.log("Closing...");
+  });
+
+  con.end();
+});
+
 // (async () => {
 //   const db = await mysql.createConnection({
 //     host: process.env.STACKHERO_MYSQL_HOST,
@@ -69,18 +84,3 @@ const con = mysql.createConnection({
 //   console.error(error);
 //   process.exit(1);
 // });
-
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-
-  let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table creation was successful!");
-
-    console.log("Closing...");
-  });
-
-  con.end();
-});
