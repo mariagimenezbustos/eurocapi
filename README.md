@@ -1,6 +1,6 @@
 # Eurocapi
 
-This MVP projects a traveling-through-Europe interactive website where the user can find information, hotels to book, and prices, as well as comments from locals and fellow tourists.
+This MVP projects a traveling-through-Europe interactive website where the user can find information, hotels to book, and prices, as well as comments from locals and fellow tourists. Play with the deployed Eurocapi here: https://secret-lowlands-04680-494dea388f68.herokuapp.com/
 
 ## Built With
 
