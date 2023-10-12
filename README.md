@@ -17,8 +17,8 @@ This MVP projects a traveling-through-Europe interactive website where the user 
 
 ### Dependencies
 
-- [ ] Run `npm install` in project directory. This will install server-related dependencies such as `express`.
-- [ ] `cd client` and run `npm install`. This will install client dependencies (React).
+- Run `npm install` in project directory. This will install server-related dependencies such as `express`.
+- `cd client` and run `npm install`. This will install client dependencies (React).
 
 ### Database Prep
 
