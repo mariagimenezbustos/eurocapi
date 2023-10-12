@@ -1,6 +1,6 @@
-# my-express-app
+# Eurocapi
 
-This Eurocapi MVP projects what a traveling-through-Europe website could look like.
+This MVP projects a traveling-through-Europe interactive website where the user can find information, hotels to book, and prices, as well as comments from locals and fellow tourists.
 
 ## Built With
 
