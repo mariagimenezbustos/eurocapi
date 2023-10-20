@@ -63,7 +63,3 @@ This full-stack MVP is a traveling-through-European-capitals interactive app whe
 
   * For the `VITE_WEATHER_KEY`, please visit [Open Weather Map](https://openweathermap.org/api), log in or sign up and generate an API key. This API allows the user see the current temperature of each capital.
   * For the `VITE_RAPID_KEY`, please create an account (if you don't have one already) on RapidAPI, and subscribe yourself to this [Booking API](https://rapidapi.com/apidojo/api/booking) and to this [Costs-of-Living-and-Prices API](https://rapidapi.com/traveltables/api/cost-of-living-and-prices). Both of these APIs have a free plan (the Basic subscription), just make sure you stick to the request limits. You can find your API key in the "Endpoints" window of either API under the name "X-RapidAPI-key". The Booking API allows the user to search for hotels and get redirected to Booking when finding a hotel they like, and the Costs-of-Living-and-Prices API is for the user to see the current average prices in each capital.
-
-## Database Structure
-
-![Captura de pantalla 2023-08-16 a les 0 59 00](https://github.com/mariagimenezbustos/my-express-app/assets/134734638/f8e16633-6e10-4f58-bdd6-dcfa728960f2)
