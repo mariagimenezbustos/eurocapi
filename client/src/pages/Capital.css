@@ -286,12 +286,28 @@ button a:link{
 
 .book-stay-btn{
     text-align: center;
-    width: fit-content;
     border-radius: 5px;
-    padding: 0.5rem 1rem;
     background-color: #9a8c98;
     text-decoration: none;
     color: white;
+}
+
+@media screen and (min-width: 1px){
+    .book-stay-btn {
+        padding: 0.5rem 0.2rem;
+    }
+}
+
+@media screen and (min-width: 665px){
+    .book-stay-btn {
+        padding: 0.5rem 0.5rem;
+    }
+}
+
+@media screen and (min-width: 730px){
+    .book-stay-btn {
+        padding: 0.5rem 1rem;
+    }
 }
 
 #button-container{
