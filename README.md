@@ -1,6 +1,6 @@
 # Eurocapi
 
-This full-stack MVP is a traveling-through-European-capitals interactive app where the user can find information, hotels to book, and prices, as well as comments from locals and fellow tourists. Play with the deployed Eurocapi here: [Heroku App](https://secret-lowlands-04680-494dea388f68.herokuapp.com/).
+This full-stack MVP is a traveling-through-European-capitals interactive app where the user can find information, hotels to book, and prices, as well as comments from locals and fellow tourists.
 
 ## Built With
 
