@@ -15,8 +15,10 @@ This full-stack MVP is a traveling-through-European-capitals interactive app whe
 
 ## Setup
 
+<!-- 
 > **Note**
-> Please mind that if you're viewing the deployed version of Eurocapi you do not need to follow these steps.
+> Please mind that if you're viewing the deployed version of Eurocapi you do not need to follow these steps. 
+-->
 
 ### Node.js
 
