@@ -18,7 +18,7 @@
     "express": "~4.21.2",
     "fecha": "^4.2.3",
     "hotel-datepicker": "^4.6.1",
-    "morgan": "~1.9.1",
+    "morgan": "~1.10.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.8",
     "nodemon": "^3.0.1"
